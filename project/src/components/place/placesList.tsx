@@ -1,8 +1,10 @@
 import Place from './place';
 import {PlaceProps} from './place';
 
-export type PlacesProps = PlaceProps[];
-export default function placeList(places : PlacesProps) {
+export type PlacesProps = {
+  places: PlaceProps[];
+}
+export default function PlacesList({places} : PlacesProps) {
   const placesArray = places.map(({
     id,
     price,
