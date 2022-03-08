@@ -1,7 +1,7 @@
-interface MainPageProps {
+interface MainProps {
   place: number;
 }
-export default function Main({place} : MainPageProps): JSX.Element {
+export default function Main({place} : MainProps): JSX.Element {
   return (
     <>
       <div style={{display: 'none'}}>
