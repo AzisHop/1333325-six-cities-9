@@ -1,5 +1,6 @@
 import {data} from '../../mock/mainPageMock';
 import PlacesList from '../../components/place/placesList';
+import {TypePage} from '../../types/types';
 
 interface MainProps {
   place: number;
@@ -92,7 +93,7 @@ export default function Main({place} : MainProps): JSX.Element {
                   <li className="places__option" tabIndex={0}>{'Top rated first'}</li>
                 </ul>
               </form>
-              <PlacesList places={data.places} />
+              <PlacesList places={data.places} typePage={TypePage.MAIN} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>

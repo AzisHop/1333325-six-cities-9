@@ -27,17 +27,16 @@ export interface PlaceType {
 
 export interface PlaceFavorites {
   city: {
-    name: string
-  }
+    name: string;
+  };
   id: number;
-  isFavorite: boolean
-  isPremium: boolean
-  maxAdults: number
-  previewImage: string
-  price: number
-  rating: number
-  title: string
-  type: string
+  isFavorite: boolean;
+  isPremium: boolean;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
 }
 
 export interface CitiesFavorites {
@@ -56,4 +55,14 @@ export enum Cities {
   AMSTERDAM = 'Amsterdam',
   HAMBURG = 'Hamburg',
   DUSSELDORF = 'Dusseldorf',
+}
+
+export interface PageInfo {
+  typePage: TypePage;
+}
+
+export enum TypePage {
+  MAIN = 'main',
+  FAVORITES = 'favorites',
+  PROPERTY = 'property',
 }

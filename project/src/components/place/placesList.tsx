@@ -1,10 +1,10 @@
 import Place from './place';
-import {PlaceType} from '../../types/types';
+import {PageInfo, PlaceType} from '../../types/types';
 
 export type PlacesProps = {
   places: PlaceType[];
 }
-export default function PlacesList({places} : PlacesProps) {
+export default function PlacesList({places, typePage} : PlacesProps & PageInfo) {
   const placesArray = places.map(({
     id,
     price,
@@ -25,6 +25,7 @@ export default function PlacesList({places} : PlacesProps) {
       isPremium={isPremium}
       isFavorite={isFavorite}
       rating={rating}
+      typePage={typePage}
     />
   ));
   return (

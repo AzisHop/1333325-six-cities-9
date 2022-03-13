@@ -1,12 +1,7 @@
 import cn from 'classnames/bind';
-import {RatingStars, PlaceType} from '../../types/types';
+import {RatingStars, PlaceType, PageInfo, TypePage} from '../../types/types';
 
-interface PageInfo {
-  isMainPage: boolean;
-  isFavoritesPage: boolean;
-  isPropertyPage: boolean;
-}
-type PlaceProps = PlaceType & PageInfo
+type PlaceProps = PlaceType
 export default function Place({
   id,
   price,
@@ -16,10 +11,8 @@ export default function Place({
   isFavorite = false,
   previewImage,
   rating,
-  isMainPage = false,
-  isFavoritesPage = false,
-  isPropertyPage = false,
-} : PlaceProps): JSX.Element {
+  typePage,
+} : PlaceProps & PageInfo): JSX.Element {
   const bookmarkStyle = cn({
     'place-card__bookmark-button': true,
     'button': true,
@@ -28,25 +21,26 @@ export default function Place({
 
   const articleStyle = cn({
     'place-card': true,
-    'cities__place-card': isMainPage,
-    'favorites__card': isFavoritesPage,
-    'near-places__card': isPropertyPage,
-  })
+    'cities__place-card': typePage === TypePage.MAIN,
+    'favorites__card': typePage === TypePage.FAVORITES,
+    'near-places__card': typePage === TypePage.PROPERTY,
+  });
   const wrapperImgStyle = cn({
     'place-card__image-wrapper': true,
-    'cities__image-wrapper': isMainPage,
-    'favorites__image-wrapper': isFavoritesPage,
-    'near-places__image-wrapper': isPropertyPage,
+    'cities__image-wrapper': typePage === TypePage.MAIN,
+    'favorites__image-wrapper': typePage === TypePage.FAVORITES,
+    'near-places__image-wrapper': typePage === TypePage.PROPERTY,
 
-  })
+  });
   const infoCardStyle = cn({
     'place-card__info': true,
-    'favorites__card-info': isFavoritesPage,
-  })
+    'favorites__card-info': typePage === TypePage.FAVORITES,
+  });
   const sizeImgPlace = {
-    width: isFavoritesPage ? '150' : '260',
-    height: isFavoritesPage ? '110' : '200',
-  }
+    width: (typePage === TypePage.FAVORITES) ? '150px' : '260px',
+    height: (typePage === TypePage.FAVORITES) ? '110px' : '200px',
+  };
+  console.log(sizeImgPlace);
   const ratingInStars = getRatingInStars(rating);
   return (
     <article className={articleStyle}>
@@ -57,7 +51,7 @@ export default function Place({
       )}
       <div className={wrapperImgStyle}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200"
+          <img className="place-card__image" src={previewImage} width={sizeImgPlace.width} height={sizeImgPlace.height}
             alt="Place image"
           />
         </a>
@@ -69,7 +63,7 @@ export default function Place({
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={bookmarkStyle} type="button">
-            <svg className="place-card__bookmark-icon" width={sizeImgPlace.width} height={sizeImgPlace.height}>
+            <svg className="place-card__bookmark-icon" width="18px" height="19px">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
             <span className="visually-hidden">{'To bookmarks'}</span>

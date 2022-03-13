@@ -1,16 +1,16 @@
+import {PlaceFavorites} from '../types/types';
 
 
-export const favoritesPage: SmallFavorites[] = [
+export const favoritesPage: PlaceFavorites[] = [
   {
     'city': {
       'name': 'Amsterdam',
     },
     'id': 0,
     'isFavorite': true,
-    'isPremium': false,
+    'isPremium': true,
 
-    'maxAdults': 4,
-    'previewImage': 'img/1.png',
+    'previewImage': 'img/apartment-01.jpg',
     'price': 120,
     'rating': 4.8,
     'title': 'Beautiful & luxurious studio at great location',
@@ -24,8 +24,7 @@ export const favoritesPage: SmallFavorites[] = [
     'isFavorite': true,
     'isPremium': false,
 
-    'maxAdults': 4,
-    'previewImage': 'img/2.png',
+    'previewImage': 'img/apartment-02.jpg',
     'price': 300,
     'rating': 3,
     'title': 'Bars',
@@ -39,8 +38,7 @@ export const favoritesPage: SmallFavorites[] = [
     'isFavorite': true,
     'isPremium': false,
 
-    'maxAdults': 4,
-    'previewImage': 'img/3.png',
+    'previewImage': 'img/apartment-03.jpg',
     'price': 200,
     'rating': 5,
     'title': 'Bartsilla',
