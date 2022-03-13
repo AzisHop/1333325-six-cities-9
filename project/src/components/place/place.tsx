@@ -1,55 +1,75 @@
 import cn from 'classnames/bind';
-import {RatingStars, TypeHousing} from '../../types/types';
+import {RatingStars, PlaceType} from '../../types/types';
 
-export interface PlaceProps {
-  id: number;
-  price: number;
-  title: string;
-  type: TypeHousing;
-  image: string;
-  isPremium: boolean;
-  isBookmark: boolean;
-  rating: number;
-
+interface PageInfo {
+  isMainPage: boolean;
+  isFavoritesPage: boolean;
+  isPropertyPage: boolean;
 }
+type PlaceProps = PlaceType & PageInfo
 export default function Place({
   id,
   price,
   title,
   type,
   isPremium = false,
-  isBookmark = false,
-  image,
+  isFavorite = false,
+  previewImage,
   rating,
+  isMainPage = false,
+  isFavoritesPage = false,
+  isPropertyPage = false,
 } : PlaceProps): JSX.Element {
   const bookmarkStyle = cn({
     'place-card__bookmark-button': true,
     'button': true,
-    'place-card__bookmark-button--active': isBookmark,
+    'place-card__bookmark-button--active': isFavorite,
   });
+
+  const articleStyle = cn({
+    'place-card': true,
+    'cities__place-card': isMainPage,
+    'favorites__card': isFavoritesPage,
+    'near-places__card': isPropertyPage,
+  })
+  const wrapperImgStyle = cn({
+    'place-card__image-wrapper': true,
+    'cities__image-wrapper': isMainPage,
+    'favorites__image-wrapper': isFavoritesPage,
+    'near-places__image-wrapper': isPropertyPage,
+
+  })
+  const infoCardStyle = cn({
+    'place-card__info': true,
+    'favorites__card-info': isFavoritesPage,
+  })
+  const sizeImgPlace = {
+    width: isFavoritesPage ? '150' : '260',
+    height: isFavoritesPage ? '110' : '200',
+  }
   const ratingInStars = getRatingInStars(rating);
   return (
-    <article className="cities__place-card place-card">
+    <article className={articleStyle}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={wrapperImgStyle}>
         <a href="#">
-          <img className="place-card__image" src={image} width="260" height="200"
+          <img className="place-card__image" src={previewImage} width="260" height="200"
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={infoCardStyle}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={bookmarkStyle} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
+            <svg className="place-card__bookmark-icon" width={sizeImgPlace.width} height={sizeImgPlace.height}>
               <use xlinkHref="#icon-bookmark"/>
             </svg>
             <span className="visually-hidden">{'To bookmarks'}</span>

@@ -1,4 +1,5 @@
 export default function Property(): JSX.Element {
+  const userAuth = true; // ToDo будем брать из контекста
   return (
     <div className="page">
       <header className="header">
@@ -11,13 +12,18 @@ export default function Property(): JSX.Element {
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                  </a>
-                </li>
+                {
+                  userAuth &&
+                  (
+                    <li className="header__nav-item user">
+                      <a className="header__nav-link header__nav-link--profile" href="#">
+                        <div className="header__avatar-wrapper user__avatar-wrapper">
+                        </div>
+                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      </a>
+                    </li>
+                  )
+                }
                 <li className="header__nav-item">
                   <a className="header__nav-link" href="#">
                     <span className="header__signout">Sign out</span>

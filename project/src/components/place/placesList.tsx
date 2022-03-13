@@ -1,8 +1,8 @@
 import Place from './place';
-import {PlaceProps} from './place';
+import {PlaceType} from '../../types/types';
 
 export type PlacesProps = {
-  places: PlaceProps[];
+  places: PlaceType[];
 }
 export default function PlacesList({places} : PlacesProps) {
   const placesArray = places.map(({
@@ -10,9 +10,9 @@ export default function PlacesList({places} : PlacesProps) {
     price,
     title,
     type,
-    image,
+    previewImage,
     isPremium,
-    isBookmark,
+    isFavorite,
     rating,
   }) => (
     <Place
@@ -21,9 +21,9 @@ export default function PlacesList({places} : PlacesProps) {
       price={price}
       title={title}
       type={type}
-      image={image}
+      previewImage={previewImage}
       isPremium={isPremium}
-      isBookmark={isBookmark}
+      isFavorite={isFavorite}
       rating={rating}
     />
   ));
