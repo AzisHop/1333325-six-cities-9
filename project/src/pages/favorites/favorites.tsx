@@ -1,11 +1,27 @@
 import {favoritesPage} from '../../mock/favoritesMock';
+import cn from 'classnames/bind';
 
 import FavoritesPlaces from '../../components/favorites-places/favoritesPlaces';
+import FavoritesEmpty from './favoritesEmpty';
 
 export default function Favorites(): JSX.Element {
   const data = favoritesPage; // ToDo заменить данными с сервера
+  const isEmpty = !data.length;
+  const pageStyle = cn({
+    'page': true,
+    'page--favorites-empty': isEmpty,
+  });
+  const mainStyle = cn({
+    'page__main': true,
+    'page__main--favorites': true,
+    'page__main--favorites-empty': isEmpty,
+  });
+  const sectionStyle = cn({
+    'favorites': true,
+    'favorites--empty': isEmpty,
+  });
   return (
-    <div className="page">
+    <div className={pageStyle}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -34,11 +50,10 @@ export default function Favorites(): JSX.Element {
         </div>
       </header>
 
-      <main className="page__main page__main--favorites">
+      <main className={mainStyle}>
         <div className="page__favorites-container container">
-          <section className="favorites">
-            <h1 className="favorites__title">{'Saved listing'}</h1>
-            <FavoritesPlaces favoritesPlaces={data}/>
+          <section className={sectionStyle}>
+            {isEmpty ? (<FavoritesEmpty/>) : (<FavoritesPlaces favoritesPlaces={data}/>)}
           </section>
         </div>
       </main>

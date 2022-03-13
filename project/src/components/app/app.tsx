@@ -1,6 +1,6 @@
 // import MainPage from '../../pages/main';
 // import Property from '../../pages/property';
-import Favorites from '../../pages/favorites';
+import Favorites from '../../pages/favorites/favorites';
 
 function App(): JSX.Element {
   return (

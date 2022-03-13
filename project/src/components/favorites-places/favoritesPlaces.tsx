@@ -27,9 +27,12 @@ export default function FavoritesPlaces({favoritesPlaces} : FavoritesPlacesProps
     }
   }
   return (
-    <ul className="favorites__list">
-      {places}
-    </ul>
+    <>
+      <h1 className="favorites__title">{'Saved listing'}</h1>
+      <ul className="favorites__list">
+        {places}
+      </ul>
+    </>
   );
 }
 
