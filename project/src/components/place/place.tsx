@@ -40,8 +40,8 @@ export default function Place({
     width: (typePage === TypePage.FAVORITES) ? '150px' : '260px',
     height: (typePage === TypePage.FAVORITES) ? '110px' : '200px',
   };
-  console.log(sizeImgPlace);
   const ratingInStars = getRatingInStars(rating);
+
   return (
     <article className={articleStyle}>
       {isPremium && (
