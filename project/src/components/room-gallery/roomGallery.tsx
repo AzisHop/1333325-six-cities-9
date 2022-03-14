@@ -1,7 +1,7 @@
 interface PropertyGalleryProps {
   images: string[];
 }
-export default function PropertyGallery({images} : PropertyGalleryProps): JSX.Element {
+export default function RoomGallery({images} : PropertyGalleryProps): JSX.Element {
   let imgId = 0;
   const gallery = images.map((image) => (
     <div className="property__image-wrapper" key={imgId++}>

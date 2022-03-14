@@ -1,11 +1,11 @@
-import PropertyGallery from '../../components/property-gallery/propertyGallery';
+import RoomGallery from '../../components/room-gallery/roomGallery';
 import {Hotel, TypePage} from '../../types/types';
 import {hotel} from '../../mock/offerMock';
 import Comments from '../../components/comments/comments';
 import {data} from '../../mock/mainPageMock';
 import Place from '../../components/place/place';
 
-export default function Property(): JSX.Element {
+export default function Room(): JSX.Element {
   const userAuth = true; // ToDo будем брать с сервера
   const images = hotel.images;
   const data2: Hotel = hotel;
@@ -70,7 +70,7 @@ export default function Property(): JSX.Element {
 
       <main className="page__main page__main--property">
         <section className="property">
-          <PropertyGallery images={images} />
+          <RoomGallery images={images} />
           <div className="property__container container">
             <div className="property__wrapper">
               <div className="property__mark">
