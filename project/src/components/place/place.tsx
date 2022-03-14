@@ -1,5 +1,6 @@
 import cn from 'classnames/bind';
-import {RatingStars, PlaceType, PageInfo, TypePage} from '../../types/types';
+import {PlaceType, PageInfo, TypePage} from '../../types/types';
+import getRatingInStars from '../../utils/utils';
 
 type PlaceProps = PlaceType
 export default function Place({
@@ -23,13 +24,13 @@ export default function Place({
     'place-card': true,
     'cities__place-card': typePage === TypePage.MAIN,
     'favorites__card': typePage === TypePage.FAVORITES,
-    'near-places__card': typePage === TypePage.PROPERTY,
+    'near-places__card': typePage === TypePage.OFFER,
   });
   const wrapperImgStyle = cn({
     'place-card__image-wrapper': true,
     'cities__image-wrapper': typePage === TypePage.MAIN,
     'favorites__image-wrapper': typePage === TypePage.FAVORITES,
-    'near-places__image-wrapper': typePage === TypePage.PROPERTY,
+    'near-places__image-wrapper': typePage === TypePage.OFFER,
 
   });
   const infoCardStyle = cn({
@@ -84,19 +85,4 @@ export default function Place({
   );
 }
 
-function getRatingInStars(rating: number) {
-  switch (Math.round(rating)) {
-    case 5:
-      return RatingStars.FIVE;
-    case 4:
-      return RatingStars.FOUR;
-    case 3:
-      return RatingStars.TREE;
-    case 2:
-      return RatingStars.TWO;
-    case 1:
-      return RatingStars.ONE;
-    default:
-      return RatingStars.NONE;
-  }
-}
+
