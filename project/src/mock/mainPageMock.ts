@@ -1,18 +1,6 @@
 import {PlacesProps} from '../components/place/placesList';
 import {TypeHousing} from '../types/types';
 
-// export interface PlaceProps {
-//   id: number;
-//   price: number;
-//   title: string;
-//   type: TypeHousing;
-//   image: string;
-//   isPremium: boolean;
-//   isBookmark: boolean;
-//   rating: number;
-//
-// }
-
 export const data : PlacesProps ={
   places: [
     {
