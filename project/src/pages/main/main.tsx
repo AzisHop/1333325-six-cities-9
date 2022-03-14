@@ -9,7 +9,6 @@ interface MainProps {
   place: number;
 }
 export default function Main({place} : MainProps): JSX.Element {
-  // const places = data; // ToDo будем брать с сервера
   return (
     <div className="page page--gray page--main">
       <header className="header">
