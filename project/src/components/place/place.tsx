@@ -1,8 +1,6 @@
 import cn from 'classnames';
 import {Hotel, PageInfo, TypePage, stars} from '../../types/types';
-// import getRatingInStars from '../../utils/utils';
 
-// type PlaceProps = PlaceData
 interface PlaceProps {
   place: Hotel;
 }

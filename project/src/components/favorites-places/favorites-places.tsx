@@ -20,10 +20,7 @@ export default function FavoritesPlaces({favoritesPlaces} : FavoritesPlacesProps
   const places = [];
   for (const amount of cities.values()) {
     if (amount.length) {
-      const city = (
-        <FavoritePlacesCity favoritesPlaces={amount}/>
-      );
-      places.push(city);
+      places.push(<FavoritePlacesCity favoritesPlaces={amount}/>);
     }
   }
   return (
