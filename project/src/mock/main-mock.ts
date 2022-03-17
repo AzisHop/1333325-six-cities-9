@@ -1,9 +1,12 @@
-import {PlacesProps} from '../components/place/placesList';
+import {PlacesProps} from '../components/place/places-list';
 import {TypeHousing} from '../types/types';
 
 export const data : PlacesProps ={
   places: [
     {
+      'city': {
+        'name': 'Amsterdam',
+      },
       id: 0,
       price: 120,
       title: 'Beautiful &amp; luxurious apartment at great location',
@@ -14,6 +17,9 @@ export const data : PlacesProps ={
       rating: 4.1,
     },
     {
+      'city': {
+        'name': 'Amsterdam',
+      },
       id: 1,
       price: 330,
       title: 'Good',
@@ -24,6 +30,9 @@ export const data : PlacesProps ={
       rating: 2,
     },
     {
+      'city': {
+        'name': 'Amsterdam',
+      },
       id: 2,
       price: 244,
       title: 'Bars',
@@ -34,6 +43,9 @@ export const data : PlacesProps ={
       rating: 3.6,
     },
     {
+      'city': {
+        'name': 'Amsterdam',
+      },
       id: 3,
       price: 112,
       title: 'Barsuk',
@@ -44,6 +56,9 @@ export const data : PlacesProps ={
       rating: 3.3,
     },
     {
+      'city': {
+        'name': 'Amsterdam',
+      },
       id: 4,
       price: 211,
       title: 'bizarro',
@@ -54,6 +69,9 @@ export const data : PlacesProps ={
       rating: 4.1,
     },
     {
+      'city': {
+        'name': 'Amsterdam',
+      },
       id: 5,
       price: 300,
       title: 'Bimo',

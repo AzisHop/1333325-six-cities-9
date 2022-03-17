@@ -1,33 +1,17 @@
 import Place from '../place/place';
-import {PlaceFavorites, TypePage} from '../../types/types';
+import {Hotel, TypePage} from '../../types/types';
 
 type FavoritePlacesCityProps = FavoritesPlacesProps
 
 interface FavoritesPlacesProps {
-  favoritesPlaces: PlaceFavorites[]
+  favoritesPlaces: Hotel[]
 }
 
 export default function FavoritePlacesCity({favoritesPlaces}: FavoritePlacesCityProps): JSX.Element {
-  const places = favoritesPlaces.map(({
-    id,
-    price,
-    title,
-    type,
-    isPremium,
-    isFavorite,
-    previewImage,
-    rating,
-  }) => (
+  const places = favoritesPlaces.map((place) => (
     <Place
-      key={id}
-      id={id}
-      price={price}
-      title={title}
-      type={type}
-      isPremium={isPremium}
-      isFavorite={isFavorite}
-      previewImage={previewImage}
-      rating={rating}
+      key={place.id}
+      place={place}
       typePage={TypePage.FAVORITES}
     />
   ));
@@ -36,7 +20,7 @@ export default function FavoritePlacesCity({favoritesPlaces}: FavoritePlacesCity
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
           <a className="locations__item-link" href="#">
-            <span>{favoritesPlaces[0]?.city.name}</span>
+            <span>{favoritesPlaces[0]?.city?.name}</span>
           </a>
         </div>
       </div>

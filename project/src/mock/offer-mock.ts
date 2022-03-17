@@ -1,6 +1,6 @@
 import {Hotel} from '../types/types';
 
-export const hotel: Hotel = {
+export const hotelMock: Hotel = {
   'bedrooms': 3,
   'city': {
     'location': {

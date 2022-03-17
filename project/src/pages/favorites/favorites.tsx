@@ -1,8 +1,8 @@
-import {favoritesPage} from '../../mock/favoritesMock';
-import cn from 'classnames/bind';
+import {favoritesPage} from '../../mock/favorites-mock';
+import cn from 'classnames';
 
-import FavoritesPlaces from '../../components/favorites-places/favoritesPlaces';
-import FavoritesEmpty from './favoritesEmpty';
+import FavoritesPlaces from '../../components/favorites-places/favorites-places';
+import FavoritesEmpty from './favorites-empty';
 
 export default function Favorites(): JSX.Element {
   const data = favoritesPage; // ToDo заменить данными с сервера

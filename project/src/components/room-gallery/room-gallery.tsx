@@ -3,7 +3,7 @@ interface PropertyGalleryProps {
 }
 export default function RoomGallery({images} : PropertyGalleryProps): JSX.Element {
   let imgId = 0;
-  const gallery = images.map((image) => (
+  const gallery = images.map((image, index) => (
     <div className="property__image-wrapper" key={imgId++}>
       <img className="property__image" src={image} alt="Photo studio"/>
     </div>

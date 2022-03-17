@@ -1,35 +1,19 @@
-import RoomGallery from '../../components/room-gallery/roomGallery';
+import RoomGallery from '../../components/room-gallery/room-gallery';
 import {Hotel, TypePage} from '../../types/types';
-import {hotel} from '../../mock/offerMock';
+import {hotelMock} from '../../mock/offer-mock';
 import Comments from '../../components/comments/comments';
-import {data} from '../../mock/mainPageMock';
+import {data} from '../../mock/main-mock';
 import Place from '../../components/place/place';
 
 export default function Room(): JSX.Element {
   const userAuth = true; // ToDo будем брать с сервера
-  const images = hotel.images;
-  const data2: Hotel = hotel;
+  const images = hotelMock.images || [];
+  const hotel: Hotel = hotelMock;
   const placesNearby = data.places; // ToDo будем брать с сервера
-  const places = placesNearby.map(({
-    id,
-    price,
-    title,
-    type,
-    previewImage,
-    isPremium,
-    isFavorite,
-    rating,
-  }) => (
+  const places = placesNearby.map((place) => (
     <Place
-      key={id}
-      id={id}
-      price={price}
-      title={title}
-      type={type}
-      previewImage={previewImage}
-      isPremium={isPremium}
-      isFavorite={isFavorite}
-      rating={rating}
+      key={place.id}
+      place={place}
       typePage={TypePage.OFFER}
     />
   ));
@@ -96,21 +80,21 @@ export default function Room(): JSX.Element {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {data2.type}
+                  {hotel.type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  {data2.bedrooms} Bedrooms
+                  {hotel.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                    Max {data2.maxAdults} adults
+                    Max {hotel.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
-                <b className="property__price-value">&euro;{data2.price}</b>
+                <b className="property__price-value">&euro;{hotel.price}</b>
                 <span className="property__price-text">&nbsp;night</span>
               </div>
               <div className="property__inside">
-                <h2 className="property__inside-title">{data2.title}</h2>
+                <h2 className="property__inside-title">{hotel.title}</h2>
                 <ul className="property__inside-list">
                   <li className="property__inside-item">
                       Wi-Fi
@@ -148,14 +132,14 @@ export default function Room(): JSX.Element {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src={data2.host.avatarUrl} width="74"
+                    <img className="property__avatar user__avatar" src={hotel?.host?.avatarUrl} width="74"
                       height="74" alt="Host avatar"
                     />
                   </div>
                   <span className="property__user-name">
-                    {data2.host.name}
+                    {hotel?.host?.name}
                   </span>
-                  {data2.host.isPro &&
+                  {hotel?.host?.isPro &&
                   (
                     <span className="property__user-status">
                     Pro
@@ -164,7 +148,7 @@ export default function Room(): JSX.Element {
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    {data2.description}
+                    {hotel?.description}
                   </p>
                 </div>
               </div>

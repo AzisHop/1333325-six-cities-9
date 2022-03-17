@@ -14,40 +14,6 @@ export enum TypeHousing {
   HOTEL = 'hotel',
 }
 
-export interface PlaceType {
-  id: number;
-  price: number;
-  title: string;
-  type: string;
-  previewImage: string;
-  isPremium: boolean;
-  isFavorite: boolean;
-  rating: number;
-}
-
-export interface PlaceFavorites {
-  city: {
-    name: string;
-  };
-  id: number;
-  isFavorite: boolean;
-  isPremium: boolean;
-  previewImage: string;
-  price: number;
-  rating: number;
-  title: string;
-  type: string;
-}
-
-export interface CitiesFavorites {
-  Paris: PlaceType[];
-  Cologne: PlaceType[];
-  Brussels: PlaceType[];
-  Amsterdam: PlaceType[];
-  Hamburg: PlaceType[];
-  Dusseldorf: PlaceType[];
-}
-
 export enum Cities {
   PARIS = 'Paris',
   COLOGNE = 'Cologne',
@@ -68,33 +34,33 @@ export enum TypePage {
 }
 
 export interface Hotel {
-  bedrooms: number
+  bedrooms?: number
   city: {
-    location: {
-      latitude: number
-      longitude: number
-      zoom: number
+    location?: {
+      latitude?: number
+      longitude?: number
+      zoom?: number
     }
     name: string
   }
-  description: string
-  goods: [string]
-  host: {
+  description?: string
+  goods?: [string]
+  host?: {
     avatarUrl: string
     id: number
     isPro: boolean
     name: string
   }
   id: number
-  images: string[]
+  images?: string[]
   isFavorite: boolean
   isPremium: boolean
-  location: {
+  location?: {
     latitude: number
     longitude: number
     zoom: number
   }
-  maxAdults: number
+  maxAdults?: number
   previewImage: string
   price: number
   rating: number
@@ -102,13 +68,10 @@ export interface Hotel {
   type: string
 }
 
-export const months : string[] = ['January','February','March','April','May','June','July',
-  'August','September','October','November','December'];
-
-export interface CommentType {
+export interface CommentData {
   comment: string;
   date: string;
-  id?: number;
+  id: number;
   rating: number;
   user: {
     avatarUrl: string;
@@ -117,3 +80,5 @@ export interface CommentType {
     name: string;
   }
 }
+
+export const stars = 5;

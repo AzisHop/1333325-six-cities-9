@@ -1,12 +1,12 @@
-import {Cities, PlaceFavorites} from '../../types/types';
-import FavoritePlacesCity from './favoritePlacesCity';
+import {Cities, Hotel} from '../../types/types';
+import FavoritePlacesCity from './favorite-places-city';
 
 interface FavoritesPlacesProps {
-  favoritesPlaces: PlaceFavorites[]
+  favoritesPlaces: Hotel[]
 }
 
 export default function FavoritesPlaces({favoritesPlaces} : FavoritesPlacesProps): JSX.Element {
-  const cities = new Map<string, PlaceFavorites[]>([
+  const cities = new Map<string, Hotel[]>([
     [Cities.PARIS, []],
     [Cities.AMSTERDAM, []],
     [Cities.BRUSSELS, []],

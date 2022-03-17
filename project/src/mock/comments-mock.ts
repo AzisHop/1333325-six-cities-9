@@ -1,6 +1,6 @@
-import {CommentType} from '../types/types';
+import {CommentData} from '../types/types';
 
-export const commentsData: CommentType[] = [
+export const commentsData: CommentData[] = [
   {
     'comment': 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     'date': 'Mon Mar 14 2022 18:46:42 GMT+0300 (Moscow Standard Time)',

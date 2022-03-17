@@ -1,23 +1,22 @@
-import cn from 'classnames/bind';
-import {PlaceType, PageInfo, TypePage} from '../../types/types';
-import getRatingInStars from '../../utils/utils';
+import cn from 'classnames';
+import {Hotel, PageInfo, TypePage, stars} from '../../types/types';
+// import getRatingInStars from '../../utils/utils';
 
-type PlaceProps = PlaceType
+// type PlaceProps = PlaceData
+interface PlaceProps {
+  place: Hotel;
+}
+
 export default function Place({
-  id,
-  price,
-  title,
-  type,
-  isPremium = false,
-  isFavorite = false,
-  previewImage,
-  rating,
+  place,
   typePage,
 } : PlaceProps & PageInfo): JSX.Element {
+  const isPremium = place.isPremium || false;
+  // const isFavorite = place.isFavorite || false; // ToDo понадобится далее
   const bookmarkStyle = cn({
     'place-card__bookmark-button': true,
     'button': true,
-    'place-card__bookmark-button--active': isFavorite,
+    'place-card__bookmark-button--active': place.isFavorite,
   });
 
   const articleStyle = cn({
@@ -41,7 +40,7 @@ export default function Place({
     width: (typePage === TypePage.FAVORITES) ? '150px' : '260px',
     height: (typePage === TypePage.FAVORITES) ? '110px' : '200px',
   };
-  const ratingInStars = getRatingInStars(rating);
+  const ratingInStars = Math.min(Math.round(place.rating), 5) * 100 / stars;
 
   return (
     <article className={articleStyle}>
@@ -52,7 +51,7 @@ export default function Place({
       )}
       <div className={wrapperImgStyle}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width={sizeImgPlace.width} height={sizeImgPlace.height}
+          <img className="place-card__image" src={place.previewImage} width={sizeImgPlace.width} height={sizeImgPlace.height}
             alt="Place image"
           />
         </a>
@@ -60,7 +59,7 @@ export default function Place({
       <div className={infoCardStyle}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={bookmarkStyle} type="button">
@@ -77,9 +76,9 @@ export default function Place({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`/offer/${id}`}>{title}</a>
+          <a href={`/offer/${place.id}`}>{place.title}</a>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{place.type}</p>
       </div>
     </article>
   );

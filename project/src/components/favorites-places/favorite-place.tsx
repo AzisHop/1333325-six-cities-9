@@ -1,6 +1,6 @@
-import {PlaceType} from '../../types/types';
+import {Hotel} from '../../types/types';
 
-type FavoritePlaceProps = PlaceType
+type FavoritePlaceProps = Hotel
 
 export default function FavoritePlace({
   id,

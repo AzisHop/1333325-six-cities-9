@@ -1,7 +1,7 @@
-import {PlaceFavorites} from '../types/types';
+import {Hotel} from '../types/types';
 
 
-export const favoritesPage: PlaceFavorites[] = [
+export const favoritesPage: Hotel[] = [
   {
     'city': {
       'name': 'Amsterdam',

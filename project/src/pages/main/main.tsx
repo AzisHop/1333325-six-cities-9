@@ -1,9 +1,9 @@
-import {data} from '../../mock/mainPageMock';
-import PlacesList from '../../components/place/placesList';
+import {data} from '../../mock/main-mock';
+import PlacesList from '../../components/place/places-list';
 import {TypePage} from '../../types/types';
-import SortingCities from '../../components/sorting-cities/sortingCities';
-import MainTabs from '../../components/main-tabs/mainTabs';
-import MainEmpty from './mainEmpty';
+import SortingCities from '../../components/sorting-cities/sorting-cities';
+import MainTabs from '../../components/main-tabs/main-tabs';
+import MainEmpty from './main-empty';
 
 interface MainProps {
   place: number;
