@@ -13,26 +13,26 @@ export default function Place({
 } : PlaceProps & PageInfo): JSX.Element {
   const isPremium = place.isPremium || false;
   // const isFavorite = place.isFavorite || false; // ToDo понадобится далее
-  const bookmarkStyle = cn({
+  const bookmarkClass = cn({
     'place-card__bookmark-button': true,
     'button': true,
     'place-card__bookmark-button--active': place.isFavorite,
   });
 
-  const articleStyle = cn({
+  const articleClass = cn({
     'place-card': true,
     'cities__place-card': typePage === TypePage.MAIN,
     'favorites__card': typePage === TypePage.FAVORITES,
     'near-places__card': typePage === TypePage.OFFER,
   });
-  const wrapperImgStyle = cn({
+  const wrapperImgClass = cn({
     'place-card__image-wrapper': true,
     'cities__image-wrapper': typePage === TypePage.MAIN,
     'favorites__image-wrapper': typePage === TypePage.FAVORITES,
     'near-places__image-wrapper': typePage === TypePage.OFFER,
 
   });
-  const infoCardStyle = cn({
+  const infoCardClass = cn({
     'place-card__info': true,
     'favorites__card-info': typePage === TypePage.FAVORITES,
   });
@@ -43,26 +43,26 @@ export default function Place({
   const ratingInStars = Math.min(Math.round(place.rating), 5) * 100 / stars;
 
   return (
-    <article className={articleStyle}>
+    <article className={articleClass}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className={wrapperImgStyle}>
+      <div className={wrapperImgClass}>
         <a href="#">
           <img className="place-card__image" src={place.previewImage} width={sizeImgPlace.width} height={sizeImgPlace.height}
             alt="Place image"
           />
         </a>
       </div>
-      <div className={infoCardStyle}>
+      <div className={infoCardClass}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkStyle} type="button">
+          <button className={bookmarkClass} type="button">
             <svg className="place-card__bookmark-icon" width="18px" height="19px">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
