@@ -1,9 +1,9 @@
-import RoomGallery from '../../components/room-gallery/room-gallery';
-import {Hotel, TypePage} from '../../types/types';
-import {hotelMock} from '../../mock/offer-mock';
-import Comments from '../../components/comments/comments';
-import {data} from '../../mock/main-mock';
-import Place from '../../components/place/place';
+import RoomGallery from '../../room-gallery/room-gallery';
+import {Hotel, TypePage} from '../../../types/types';
+import {hotelMock} from '../../../mock/offer-mock';
+import Comments from '../../comments/comments';
+import {data} from '../../../mock/main-mock';
+import Place from '../../place/place';
 
 export default function Room(): JSX.Element {
   const userAuth = true; // ToDo будем брать с сервера

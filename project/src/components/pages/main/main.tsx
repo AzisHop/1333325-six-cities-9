@@ -1,8 +1,8 @@
-import {data} from '../../mock/main-mock';
-import PlacesList from '../../components/place/places-list';
-import {TypePage} from '../../types/types';
-import SortingCities from '../../components/sorting-cities/sorting-cities';
-import MainTabs from '../../components/main-tabs/main-tabs';
+import {data} from '../../../mock/main-mock';
+import PlacesList from '../../place/places-list';
+import {TypePage} from '../../../types/types';
+import SortingCities from '../../sorting-cities/sorting-cities';
+import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
 interface MainProps {

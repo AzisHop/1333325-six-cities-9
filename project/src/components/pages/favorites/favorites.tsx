@@ -1,27 +1,27 @@
-import {favoritesPage} from '../../mock/favorites-mock';
+import {favoritesPage} from '../../../mock/favorites-mock';
 import cn from 'classnames';
 
-import FavoritesPlaces from '../../components/favorites-places/favorites-places';
+import FavoritesPlaces from '../../favorites-places/favorites-places';
 import FavoritesEmpty from './favorites-empty';
 
 export default function Favorites(): JSX.Element {
   const data = favoritesPage; // ToDo заменить данными с сервера
   const isEmpty = !data.length;
-  const pageStyle = cn({
+  const pageClass = cn({
     'page': true,
     'page--favorites-empty': isEmpty,
   });
-  const mainStyle = cn({
+  const mainClass = cn({
     'page__main': true,
     'page__main--favorites': true,
     'page__main--favorites-empty': isEmpty,
   });
-  const sectionStyle = cn({
+  const sectionClass = cn({
     'favorites': true,
     'favorites--empty': isEmpty,
   });
   return (
-    <div className={pageStyle}>
+    <div className={pageClass}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -50,9 +50,9 @@ export default function Favorites(): JSX.Element {
         </div>
       </header>
 
-      <main className={mainStyle}>
+      <main className={mainClass}>
         <div className="page__favorites-container container">
-          <section className={sectionStyle}>
+          <section className={sectionClass}>
             {isEmpty ? (<FavoritesEmpty/>) : (<FavoritesPlaces favoritesPlaces={data}/>)}
           </section>
         </div>
