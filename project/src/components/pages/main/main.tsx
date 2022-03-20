@@ -1,14 +1,34 @@
 import {data} from '../../../mock/main-mock';
 import PlacesList from '../../place/places-list';
-import {TypePage} from '../../../types/types';
+import {Options, TypePage, Hotel} from '../../../types/types';
 import SortingCities from '../../sorting-cities/sorting-cities';
 import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
-interface MainProps {
-  place: number;
-}
-export default function Main({place} : MainProps): JSX.Element {
+import {setCurrentCity, loadPlaces, setSortOption} from '../../../store/main-reducer/mainReducer';
+import {useAppSelector, useAppDispatch} from '../../../hooks';
+import {getCity, getPlaces, getSortOption} from '../../../store/main-reducer/selectors';
+import {useEffect} from 'react';
+
+
+// interface MainProps {
+//   place: number;
+// }
+export default function Main(): JSX.Element {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(loadPlaces({places: data.places}));
+  }, []);
+  const currentCity = useAppSelector(getCity);
+  const sortOption = useAppSelector(getSortOption);
+  const places = getSortPlaces([...useAppSelector(getPlaces)], sortOption)
+    .filter(({city}) => city.name === currentCity);
+
+  const handleClickCity = (name: string) => {
+    dispatch(setCurrentCity({city: name}));};
+  const handleSortClick = (option: Options) => {
+    dispatch(setSortOption({option: option}));
+  };
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -40,14 +60,14 @@ export default function Main({place} : MainProps): JSX.Element {
       </header>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">{'Cities'}</h1>
-        <MainTabs />
-        <div className="cities">{!place ? (<MainEmpty />) : (
+        <MainTabs handleClickCity={handleClickCity} currentCity={currentCity}/>
+        <div className="cities">{!places.length ? (<MainEmpty />) : (
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">{'Places'}</h2>
-              <b className="places__found">{place} places to stay in Amsterdam</b>
-              <SortingCities />
-              <PlacesList places={data.places} typePage={TypePage.MAIN} />
+              <b className="places__found">{places.length} places to stay in {currentCity}</b>
+              <SortingCities handleSortClick={handleSortClick} sortOption={sortOption} />
+              <PlacesList places={places} typePage={TypePage.MAIN} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>
@@ -61,3 +81,15 @@ export default function Main({place} : MainProps): JSX.Element {
   );
 }
 
+function getSortPlaces(places: Hotel[], option: Options) {
+  switch (option) {
+    case Options.HIGH:
+      return places.sort((place1, place2) => place2.price - place1.price);
+    case Options.LOW:
+      return places.sort((place1, place2) => place1.price - place2.price);
+    case Options.TOP:
+      return places.sort((place1, place2) => place2.rating - place1.rating);
+    default:
+      return places;
+  }
+}

@@ -82,3 +82,10 @@ export interface CommentData {
 }
 
 export const stars = 5;
+
+export enum Options {
+  POPULAR = 'Popular',
+  HIGH = 'Price: low to high',
+  LOW = 'Price: high to low',
+  TOP = 'Top rated first',
+}

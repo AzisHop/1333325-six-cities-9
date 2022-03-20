@@ -1,4 +1,5 @@
-import {PlaceFavorites} from "./types";
+import {Hotel, Options} from './types';
+import {store} from '../store';
 
 export enum Reducers {
   MAIN = 'main',
@@ -6,5 +7,10 @@ export enum Reducers {
 
 export interface MainData {
   city: string;
-  places: PlaceFavorites[];
+  places: Hotel[];
+  sortingOption: Options;
 }
+
+export type State = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
