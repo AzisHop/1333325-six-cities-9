@@ -1,13 +1,14 @@
-import {commentsData} from '../../mock/comments-mock';
 import Comment from './comment';
-
-export default function Comments(): JSX.Element {
-  const data = commentsData; // ToDo будем брать с сервака
+import {CommentData} from '../../types/types';
+interface CommentsProps {
+  comments: CommentData[]
+}
+export default function Comments({comments}: CommentsProps): JSX.Element {
   return (
     <>
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{data.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
       <ul className="reviews__list">
-        {data.map((comment) => (
+        {comments.map((comment) => (
           <Comment
             key={comment.id}
             comment={comment}

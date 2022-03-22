@@ -13,20 +13,23 @@ export const mainReducer = createSlice({
   initialState,
   reducers: {
     setCurrentCity: (state, action) => {
-      const { city } = action.payload;
+      state.city = action.payload;
 
-      state.city = city;
     },
     loadPlaces: (state, action) => {
-      const { places } = action.payload;
-      state.places = places;
+      state.places = action.payload;
     },
     setSortOption: (state, action) => {
-      const {option} = action.payload;
-
-      state.sortingOption = option;
+      state.sortingOption = action.payload;
+    },
+    setFavoriteMain: (state, action) => {
+      state.places.forEach((place) => {
+        if (place.id === action.payload.id) {
+          place.isFavorite = !place.isFavorite;
+        }
+      });
     },
   },
 });
 
-export const {setCurrentCity, loadPlaces, setSortOption} = mainReducer.actions;
+export const {setCurrentCity, loadPlaces, setSortOption, setFavoriteMain} = mainReducer.actions;

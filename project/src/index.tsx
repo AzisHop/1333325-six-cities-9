@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import {store} from './store';
 import {Provider} from 'react-redux';
+import {checkAuthAction} from './store/api-actions';
+
+store.dispatch(checkAuthAction());
 
 ReactDOM.render(
   <React.StrictMode>

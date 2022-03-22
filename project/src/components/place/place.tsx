@@ -1,5 +1,11 @@
 import cn from 'classnames';
-import {Hotel, PageInfo, TypePage, stars} from '../../types/types';
+import {Hotel, PageInfo, TypePage, AppRoute} from '../../types/types';
+import {Link} from 'react-router-dom';
+import {useAppDispatch} from '../../hooks';
+import {setActivePlaceId} from '../../store/place-reducer/place-reducer';
+import {useCallback} from 'react';
+import {getRatingInStar} from '../../utils/utils';
+import {BookmarkButton} from '../bookmark-button/bookmark-button';
 
 interface PlaceProps {
   place: Hotel;
@@ -10,12 +16,6 @@ export default function Place({
   typePage,
 } : PlaceProps & PageInfo): JSX.Element {
   const isPremium = place.isPremium || false;
-  // const isFavorite = place.isFavorite || false; // ToDo понадобится далее
-  const bookmarkClass = cn({
-    'place-card__bookmark-button': true,
-    'button': true,
-    'place-card__bookmark-button--active': place.isFavorite,
-  });
 
   const articleClass = cn({
     'place-card': true,
@@ -38,7 +38,21 @@ export default function Place({
     width: (typePage === TypePage.FAVORITES) ? '150px' : '260px',
     height: (typePage === TypePage.FAVORITES) ? '110px' : '200px',
   };
-  const ratingInStars = Math.min(Math.round(place.rating), 5) * 100 / stars;
+  const ratingInStars = getRatingInStar(place.rating);
+
+  const dispatch = useAppDispatch();
+  const onClickPlace = useCallback(()=> {
+    dispatch(setActivePlaceId(place.id));
+  }, [ratingInStars]);
+
+  // const onClickBookmark = () => {
+  //   const favoriteChange: FavoriteHotel = {
+  //     id: place.id,
+  //     isFavorite: !place.isFavorite
+  //   }
+  //   dispatch(changeFavorite(favoriteChange));
+  // }
+  // console.log('ratingInStars ', ratingInStars, place.rating);
 
   return (
     <article className={articleClass}>
@@ -48,11 +62,11 @@ export default function Place({
         </div>
       )}
       <div className={wrapperImgClass}>
-        <a href="#">
+        <Link to={`${AppRoute.ROOM}/${place.id}`}>
           <img className="place-card__image" src={place.previewImage} width={sizeImgPlace.width} height={sizeImgPlace.height}
             alt="Place image"
           />
-        </a>
+        </Link>
       </div>
       <div className={infoCardClass}>
         <div className="place-card__price-wrapper">
@@ -60,12 +74,7 @@ export default function Place({
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={bookmarkClass} type="button">
-            <svg className="place-card__bookmark-icon" width="18px" height="19px">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">{'To bookmarks'}</span>
-          </button>
+          <BookmarkButton id={place.id} isFavorite={place.isFavorite}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -74,7 +83,12 @@ export default function Place({
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`/offer/${place.id}`}>{place.title}</a>
+          <Link
+            onClick={onClickPlace}
+            to={`${AppRoute.ROOM}/${place.id}`}
+          >
+            {place.title}
+          </Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>
