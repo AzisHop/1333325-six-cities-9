@@ -1,5 +1,5 @@
 import {FormEvent, useRef} from 'react';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../../hooks';
 import {AppRoute, AuthData} from '../../../types/types';
 import {loginAction} from '../../../store/api-actions';
@@ -18,7 +18,8 @@ export default function Login(): JSX.Element {
   const handleClick = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if (emailRef.current !== null && passwordRef.current !== null) {
+    if ((emailRef.current !== null && passwordRef.current !== null)
+      && (emailRef.current?.value.length && passwordRef.current?.value.length)) {
       onSubmit({
         email: emailRef.current.value,
         password: passwordRef.current.value,
@@ -32,9 +33,9 @@ export default function Login(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link className="header__logo-link" to={AppRoute.ROOT}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

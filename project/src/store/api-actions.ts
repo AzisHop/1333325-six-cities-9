@@ -9,12 +9,14 @@ import {
   Hotel,
   UserData,
   NewComment,
-  FavoriteHotel
+  FavoriteHotel,
+  AppRoute
 } from '../types/types';
 import {loadPlaces, setFavoriteMain} from './main-reducer/mainReducer';
 import {loadPlace, loadComments, loadNearbyOffers, setFavoriteNearbyOffers, setFavoriteHotel} from './place-reducer/place-reducer';
 import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
+import browserHistory from '../browser-history';
 
 export const fetchHotelsAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch,
@@ -162,7 +164,7 @@ export const changeFavorite = createAsyncThunk<void, FavoriteHotel, {
       dispatch(setFavoriteNearbyOffers(data));
       dispatch(setFavoriteHotel(data.isFavorite));
     } catch (error) {
-      // console.log(error);
+      browserHistory.push(AppRoute.LOGIN);
     }
   },
 );

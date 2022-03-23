@@ -23,7 +23,7 @@ export default function Room(): JSX.Element {
     dispatch(fetchComments(roomId));
     dispatch(fetchNearOffers(roomId));
     dispatch(setFavoriteHotel(false));
-  }, [roomId, dispatch]);
+  }, [roomId, dispatch, useAppSelector(getAuth)]);
   const userAuth = useAppSelector(getAuth);
   const email = useAppSelector(getEmail);
   const comments = useAppSelector(getComments);
@@ -152,7 +152,7 @@ export default function Room(): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <Comments comments={comments}/>
-                <CommentForm roomId={roomId} />
+                {userAuth === AuthorizationStatus.AUTH ? <CommentForm roomId={roomId} /> : null}
               </section>
             </div>
           </div>
