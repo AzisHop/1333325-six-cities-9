@@ -1,5 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {PlaceData, Reducers} from '../../types/state';
+import {CommentData, Hotel} from "../../types/types";
 
 const initialState: PlaceData = {
   activePlaceId: -1,
@@ -13,24 +14,24 @@ export const placeReducer = createSlice({
   name: Reducers.USER,
   initialState,
   reducers: {
-    setActivePlaceId: (state, action) => {
+    setActivePlaceId: (state, action: PayloadAction<number>) => {
       state.activePlaceId = action.payload;
     },
-    loadPlace: (state, action) => {
+    loadPlace: (state, action: PayloadAction<Hotel>) => {
       state.place = action.payload;
     },
-    loadComments: (state, action) => {
+    loadComments: (state, action: PayloadAction<CommentData[]>) => {
       state.comments = action.payload;
     },
-    loadNearbyOffers: (state, action) => {
+    loadNearbyOffers: (state, action: PayloadAction<Hotel[]>) => {
       state.nearbyOffers = action.payload;
     },
-    setFavoriteHotel: (state, action) => {
+    setFavoriteHotel: (state, action: PayloadAction<Hotel>) => {
       if (state.place !== null) {
         state.place.isFavorite = !state.place.isFavorite;
       }
     },
-    setFavoriteNearbyOffers: (state, action) => {
+    setFavoriteNearbyOffers: (state, action: PayloadAction<Hotel>) => {
       if (!state.nearbyOffers.length) {
         return;
       }

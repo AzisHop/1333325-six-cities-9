@@ -11,7 +11,7 @@ export default function Tab({active, name, handleClickCity} : TabProps): JSX.Ele
     'tabs__item--active': active,
   });
   return (
-    <li className="locations__item" onClick={() => handleClickCity(name)} key={name}>
+    <li className="locations__item" onClick={() => handleClickCity(name)}>
       <a className={linkClass} href="#">
         <span>{name}</span>
       </a>

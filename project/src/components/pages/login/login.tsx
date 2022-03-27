@@ -18,8 +18,7 @@ export default function Login(): JSX.Element {
   const handleClick = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    if ((emailRef.current !== null && passwordRef.current !== null)
-      && (emailRef.current?.value.length && passwordRef.current?.value.length)) {
+    if (emailRef.current?.value.length && passwordRef.current?.value.length) {
       onSubmit({
         email: emailRef.current.value,
         password: passwordRef.current.value,

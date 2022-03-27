@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AuthorizationStatus, UserProcess} from '../../types/types';
-import {Reducers} from '../../types/state';
+import {PayloadActionAuthorization, Reducers} from '../../types/state';
 
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,

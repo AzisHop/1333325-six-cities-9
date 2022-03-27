@@ -40,20 +40,6 @@ export default function Place({
   };
   const ratingInStars = getRatingInStar(place.rating);
 
-  const dispatch = useAppDispatch();
-  const onClickPlace = useCallback(()=> {
-    dispatch(setActivePlaceId(place.id));
-  }, [ratingInStars]);
-
-  // const onClickBookmark = () => {
-  //   const favoriteChange: FavoriteHotel = {
-  //     id: place.id,
-  //     isFavorite: !place.isFavorite
-  //   }
-  //   dispatch(changeFavorite(favoriteChange));
-  // }
-  // console.log('ratingInStars ', ratingInStars, place.rating);
-
   return (
     <article className={articleClass}>
       {isPremium && (
@@ -84,7 +70,6 @@ export default function Place({
         </div>
         <h2 className="place-card__name">
           <Link
-            onClick={onClickPlace}
             to={`${AppRoute.ROOM}/${place.id}`}
           >
             {place.title}

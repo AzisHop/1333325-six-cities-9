@@ -1,4 +1,4 @@
-import {CommentData, Hotel, Options} from './types';
+import {CommentData, Hotel, Options, UserProcess} from './types';
 import {store} from '../store';
 import {AxiosInstance} from "axios";
 
@@ -26,6 +26,10 @@ export interface apiTemp {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
+}
+
+export interface PayloadActionAuthorization {
+  userProcess: UserProcess[];
 }
 
 export type State = ReturnType<typeof store.getState>;
