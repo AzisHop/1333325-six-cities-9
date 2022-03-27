@@ -5,6 +5,7 @@ import {Reducers} from '../../types/state';
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   email: '',
+  avatarUrl: '',
 };
 
 export const userReducer = createSlice({
@@ -12,7 +13,7 @@ export const userReducer = createSlice({
   initialState,
   reducers: {
     requireAuthorization: (state, action) => {
-      [state.authorizationStatus, state.email] = action.payload;
+      [state.authorizationStatus, state.email, state.avatarUrl] = action.payload;
     },
   },
 });

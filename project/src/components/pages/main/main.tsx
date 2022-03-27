@@ -10,7 +10,7 @@ import {getCity, getPlaces, getSortOption} from '../../../store/main-reducer/sel
 import {useEffect} from 'react';
 import {fetchHotelsAction} from '../../../store/api-actions';
 import Header from '../../header/header';
-import {getAuth, getEmail} from '../../../store/user-reducer/selectors';
+import {getAuth, getAvatarUrl, getEmail} from '../../../store/user-reducer/selectors';
 
 export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -19,6 +19,7 @@ export default function Main(): JSX.Element {
   }, [dispatch]);
   const auth = useAppSelector(getAuth);
   const email = useAppSelector(getEmail);
+  const avatarUrl =useAppSelector(getAvatarUrl);
   const currentCity = useAppSelector(getCity);
   const sortOption = useAppSelector(getSortOption);
   const places = getSortPlaces([...useAppSelector(getPlaces)], sortOption)
@@ -32,7 +33,7 @@ export default function Main(): JSX.Element {
   };
   return (
     <div className="page page--gray page--main">
-      <Header isAuth={auth === AuthorizationStatus.AUTH} email={email}/>
+      <Header isAuth={auth === AuthorizationStatus.AUTH} email={email} avatarUrl={avatarUrl}/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">{'Cities'}</h1>
         <MainTabs handleClickCity={handleClickCity} currentCity={currentCity}/>

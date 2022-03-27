@@ -3,3 +3,5 @@ import {AuthorizationStatus} from '../../types/types';
 
 export const getEmail = (state: State): string => state[Reducers.USER].email;
 export const getAuth = (state: State): AuthorizationStatus => state[Reducers.USER].authorizationStatus;
+export const getAvatarUrl = (state: State): string => state[Reducers.USER].avatarUrl;
+

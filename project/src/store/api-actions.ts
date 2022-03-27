@@ -1,6 +1,6 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.js';
+import {apiTemp, AppDispatch, State} from '../types/state.js';
 import {
   APIRoute,
   AuthData,
@@ -18,11 +18,7 @@ import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
 import browserHistory from '../browser-history';
 
-export const fetchHotelsAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const fetchHotelsAction = createAsyncThunk<void, undefined, apiTemp>(
   'data/fetchHotels',
   async (_arg, {dispatch, extra: api}) => {
     try {
@@ -34,16 +30,12 @@ export const fetchHotelsAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const checkAuthAction = createAsyncThunk<void, undefined, apiTemp>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
-      const {data: { email } } = await api.get<UserData>(APIRoute.LOGIN);
-      dispatch(requireAuthorization([AuthorizationStatus.AUTH, email]));
+      const {data} = await api.get<UserData>(APIRoute.LOGIN);
+      dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch(error) {
       // console.log(error);
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -51,17 +43,13 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const loginAction = createAsyncThunk<void, AuthData, apiTemp>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
     try {
-      const {data: {token}} = await api.post<UserData>(APIRoute.LOGIN, {email, password});
-      saveToken(token);
-      dispatch(requireAuthorization([AuthorizationStatus.AUTH, email]));
+      const {data} = await api.post<UserData>(APIRoute.LOGIN, {email, password});
+      saveToken(data.token);
+      dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch (error) {
       // console.log(error);
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
@@ -69,28 +57,20 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   },
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const logoutAction = createAsyncThunk<void, undefined, apiTemp>(
   'user/logout',
   async (_arg, { dispatch, extra: api}) => {
     try {
       await api.delete(APIRoute.LOGOUT);
       dropToken();
-      dispatch(requireAuthorization([AuthorizationStatus.NO_AUTH, '']));
+      dispatch(requireAuthorization([AuthorizationStatus.NO_AUTH, '', '']));
     } catch (error) {
       // console.log(error);
     }
   },
 );
 
-export const fetchOffer = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const fetchOffer = createAsyncThunk<void, number, apiTemp>(
   'user/offer',
   async (id, { dispatch, extra: api}) => {
     try {
@@ -102,11 +82,7 @@ export const fetchOffer = createAsyncThunk<void, number, {
   },
 );
 
-export const fetchComments = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const fetchComments = createAsyncThunk<void, number, apiTemp>(
   'offer/comment',
   async (id, { dispatch, extra: api}) => {
     try {
@@ -118,11 +94,7 @@ export const fetchComments = createAsyncThunk<void, number, {
   },
 );
 
-export const fetchNearOffers = createAsyncThunk<void, number, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const fetchNearOffers = createAsyncThunk<void, number, apiTemp>(
   'offer/nearOffers',
   async (id, { dispatch, extra: api}) => {
     try {
@@ -134,11 +106,7 @@ export const fetchNearOffers = createAsyncThunk<void, number, {
   },
 );
 
-export const createComment = createAsyncThunk<void, NewComment, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const createComment = createAsyncThunk<void, NewComment, apiTemp>(
   'offer/comment',
   async (newComment, { dispatch, extra: api}) => {
     try {
@@ -151,11 +119,7 @@ export const createComment = createAsyncThunk<void, NewComment, {
   },
 );
 
-export const changeFavorite = createAsyncThunk<void, FavoriteHotel, {
-  dispatch: AppDispatch,
-  state: State,
-  extra: AxiosInstance
-}>(
+export const changeFavorite = createAsyncThunk<void, FavoriteHotel, apiTemp>(
   'offer/favorite',
   async ({id, isFavorite}, { dispatch, extra: api}) => {
     try {

@@ -115,6 +115,7 @@ export interface UserData {
   id: number;
   email: string;
   token: string;
+  avatarUrl: string;
 }
 
 export enum AuthorizationStatus {
@@ -126,6 +127,7 @@ export enum AuthorizationStatus {
 export interface UserProcess {
   authorizationStatus: AuthorizationStatus;
   email: string;
+  avatarUrl: string;
 }
 
 export interface NewComment {

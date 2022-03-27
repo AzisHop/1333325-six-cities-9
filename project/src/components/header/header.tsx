@@ -7,9 +7,10 @@ interface HeaderProps {
   isAuth: boolean;
   email: string;
   page?: string;
+  avatarUrl?: string;
 }
 
-export default function Header({isAuth, email, page = AppRoute.ROOT}: HeaderProps): JSX.Element {
+export default function Header({isAuth, email, page = AppRoute.ROOT, avatarUrl = ''}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
   const handleClick = () => {
     dispatch(logoutAction());
@@ -31,7 +32,7 @@ export default function Header({isAuth, email, page = AppRoute.ROOT}: HeaderProp
                     <>
                       <li className="header__nav-item user">
                         <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-                          <div className="header__avatar-wrapper user__avatar-wrapper">
+                          <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: avatarUrl}}>
                           </div>
                           <span className="header__user-name user__name">{email}</span>
                         </Link>
