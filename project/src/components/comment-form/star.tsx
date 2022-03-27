@@ -1,21 +1,13 @@
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {setRating} from '../../store/place-reducer/place-reducer';
-import {getIsDisabled, getRating} from '../../store/place-reducer/selectors';
+import {ChangeEvent} from "react";
 
 interface StarProps {
   id: number;
+  activeId: number;
+  onChangeRating: (event: ChangeEvent<HTMLInputElement>) => void;
+  isDisabled: boolean;
 }
 
-export default function Star({id}: StarProps) : JSX.Element {
-
-  const dispatch = useAppDispatch();
-  const isChecked = Number(useAppSelector(getRating)) === Number(id);
-  const isDisabled = useAppSelector(getIsDisabled);
-
-  const onChangeRating = (event: any) => {
-    dispatch(setRating(event.target.value));
-  };
-
+export default function Star({id, onChangeRating, activeId, isDisabled}: StarProps) : JSX.Element {
   return (
     <>
       <input
@@ -23,8 +15,9 @@ export default function Star({id}: StarProps) : JSX.Element {
         name="rating"
         value={id}
         id={`${id}-stars`}
-        type="radio" onChange={onChangeRating}
-        checked={isChecked}
+        type="radio"
+        onChange={onChangeRating}
+        checked={id === activeId}
         disabled={isDisabled}
       />
       <label htmlFor={`${id}-stars`} className="reviews__rating-label form__rating-label" title="perfect">

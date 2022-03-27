@@ -6,8 +6,6 @@ const initialState: PlaceData = {
   place: null,
   comments: [],
   nearbyOffers: [],
-  rating: 0,
-  isDisabled: false,
   isCurrentFavorite: false,
 };
 
@@ -26,12 +24,6 @@ export const placeReducer = createSlice({
     },
     loadNearbyOffers: (state, action) => {
       state.nearbyOffers = action.payload;
-    },
-    setRating: (state, action) => {
-      state.rating = action.payload;
-    },
-    setIsDisabled: (state, action) => {
-      state.isDisabled = action.payload;
     },
     setFavoriteHotel: (state, action) => {
       if (state.place !== null) {
@@ -56,8 +48,6 @@ export const {
   loadPlace,
   loadComments,
   loadNearbyOffers,
-  setRating,
-  setIsDisabled,
   setFavoriteHotel,
   setFavoriteNearbyOffers,
 } = placeReducer.actions;

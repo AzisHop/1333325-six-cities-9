@@ -18,8 +18,6 @@ export interface PlaceData {
   place: Hotel | null;
   comments: CommentData[]
   nearbyOffers: Hotel[]
-  rating: number;
-  isDisabled: boolean;
   isCurrentFavorite: boolean;
 }
 

@@ -1,10 +1,8 @@
-import {useState} from 'react';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import {useState, ChangeEvent, FormEvent} from 'react';
+import {useAppDispatch} from '../../hooks';
 import {NewComment} from '../../types/types';
 import {createComment} from '../../store/api-actions';
 import RatingStars from './rating-stars';
-import {getIsDisabled, getRating} from '../../store/place-reducer/selectors';
-import {setRating, setIsDisabled} from '../../store/place-reducer/place-reducer';
 
 interface CommentFormProps {
   roomId: number;
@@ -14,22 +12,23 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
   const dispatch = useAppDispatch();
   const [isCommentTextValid, setIsCommentTextValid] = useState(false);
   const [comment, setComment] = useState('');
-  const rating = useAppSelector(getRating);
-  const isDisabled = useAppSelector(getIsDisabled);
+  const [rating, setRating] = useState(0);
+  const [isDisabled, setIsDisabled] = useState(false);
 
-  const onChangeComment = (event: any) => {
-    const text = event.target.value;
-    setComment(text);
-    if (text.length > 50 && text.length <= 300) {
-      setIsCommentTextValid(true);
-    } else {
-      setIsCommentTextValid(false);
-    }
+  const onChangeRating = (event: ChangeEvent<HTMLInputElement>) => {
+    setRating(Number(event.target.value));
   };
 
-  const handleSubmit = (event: any) => {
+  const onChangeComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const text = event.target.value;
+    setComment(text);
+    const isValid = text.length > 50 && text.length <= 300;
+    setIsCommentTextValid(isValid);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    dispatch(setIsDisabled(true));
+    setIsDisabled(true)
     const newComment: NewComment = {
       idOffer: roomId,
       review: {
@@ -39,16 +38,17 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
     };
     dispatch(createComment(newComment))
       .then(() => {
-        dispatch(setIsDisabled(false));
-        dispatch(setRating(0));
+        setIsDisabled(false);
+        setRating(0);
         setComment('');
+        setIsCommentTextValid(false);
       });
   };
 
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <RatingStars/>
+      <RatingStars onChangeRating={onChangeRating} activeId={rating} isDisabled={isDisabled}/>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"

@@ -27,7 +27,6 @@ function App(): JSX.Element {
             element={<Room />}
           />
         </Route>
-
       </Routes>
     </HistoryRouter>
   );
