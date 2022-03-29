@@ -1,16 +1,45 @@
 import RoomGallery from '../../room-gallery/room-gallery';
-import {Hotel, TypePage} from '../../../types/types';
-import {hotelMock} from '../../../mock/offer-mock';
+import {AppRoute, AuthorizationStatus, Hotel, TypePage} from '../../../types/types';
 import Comments from '../../comments/comments';
-import {data} from '../../../mock/main-mock';
 import Place from '../../place/place';
+import {useAppDispatch, useAppSelector} from '../../../hooks';
+import {fetchComments, fetchNearOffers, fetchOffer} from '../../../store/api-actions';
+import {getComments, getNearbyOffers, getPlace} from '../../../store/place-reducer/selectors';
+import {useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import Header from '../../header/header';
+import {getAuth, getEmail} from '../../../store/user-reducer/selectors';
+import CommentForm from '../../comment-form/comment-form';
+import {getRatingInStar} from '../../../utils/utils';
+import {BookmarkButton} from '../../bookmark-button/bookmark-button';
 
 export default function Room(): JSX.Element {
-  const userAuth = true; // ToDo будем брать с сервера
-  const images = hotelMock.images || [];
-  const hotel: Hotel = hotelMock;
-  const placesNearby = data.places; // ToDo будем брать с сервера
-  const places = placesNearby.map((place) => (
+  const param = useParams();
+  const roomId = Number(param.id);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchOffer(roomId));
+    dispatch(fetchComments(roomId));
+    dispatch(fetchNearOffers(roomId));
+  }, [roomId, dispatch, useAppSelector(getAuth)]);
+  const userAuth = useAppSelector(getAuth);
+  const email = useAppSelector(getEmail);
+  const comments = useAppSelector(getComments);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const hotel: Hotel | null = useAppSelector(getPlace);
+
+  if (hotel === null) {
+    return (<div/>); // ToDo обработать нормально ошибку
+  }
+
+  const ratingInStars = getRatingInStar(hotel.rating, 150);
+  let images = hotel.images || [];
+
+  if (images.length > 5) {
+    images = images.slice(0, 6);
+  }
+
+  const places = nearbyOffers.map((place) => (
     <Place
       key={place.id}
       place={place}
@@ -19,38 +48,10 @@ export default function Room(): JSX.Element {
   ));
   return (
     <div className="page">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                {
-                  userAuth &&
-                  (
-                    <li className="header__nav-item user">
-                      <a className="header__nav-link header__nav-link--profile" href="#">
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      </a>
-                    </li>
-                  )
-                }
-                <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
-                    <span className="header__signout">Sign out</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header isAuth={userAuth === AuthorizationStatus.AUTH}
+        email={email}
+        page={`${AppRoute.ROOM}/${roomId}`}
+      />
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -64,19 +65,14 @@ export default function Room(): JSX.Element {
                 <h1 className="property__name">
                     Beautiful &amp; luxurious studio at great location
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton id={roomId} page={TypePage.OFFER} isFavorite={hotel.isFavorite}/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}/>
+                  <span style={{width: ratingInStars}}/>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="property__rating-value rating__value">4.8</span>
+                <span className="property__rating-value rating__value">{hotel.rating}</span>
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
@@ -153,72 +149,8 @@ export default function Room(): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <Comments />
-                <form className="reviews__form form" action="#" method="post">
-                  <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                  <div className="reviews__rating-form form__rating">
-                    <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars"
-                      type="radio"
-                    />
-                    <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars"
-                      type="radio"
-                    />
-                    <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars"
-                      type="radio"
-                    />
-                    <label htmlFor="3-stars" className="reviews__rating-label form__rating-label"
-                      title="not bad"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars"
-                      type="radio"
-                    />
-                    <label htmlFor="2-stars" className="reviews__rating-label form__rating-label"
-                      title="badly"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star"
-                      type="radio"
-                    />
-                    <label htmlFor="1-star" className="reviews__rating-label form__rating-label"
-                      title="terribly"
-                    >
-                      <svg className="form__star-image" width="37" height="33">
-                        <use xlinkHref="#icon-star"/>
-                      </svg>
-                    </label>
-                  </div>
-                  <textarea className="reviews__textarea form__textarea" id="review" name="review"
-                    placeholder="Tell how was your stay, what you like and what can be improved"
-                  />
-                  <div className="reviews__button-wrapper">
-                    <p className="reviews__help">
-                        To submit review please make sure to set <span className="reviews__star">rating</span> and
-                        describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                    </p>
-                    <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
-                  </div>
-                </form>
+                <Comments comments={comments}/>
+                {userAuth === AuthorizationStatus.AUTH ? <CommentForm roomId={roomId} /> : null}
               </section>
             </div>
           </div>

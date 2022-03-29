@@ -5,7 +5,7 @@ export const data : PlacesProps ={
   places: [
     {
       'city': {
-        'name': 'Amsterdam',
+        'name': 'Paris',
       },
       id: 0,
       price: 120,
@@ -18,7 +18,7 @@ export const data : PlacesProps ={
     },
     {
       'city': {
-        'name': 'Amsterdam',
+        'name': 'Paris',
       },
       id: 1,
       price: 330,

@@ -82,3 +82,63 @@ export interface CommentData {
 }
 
 export const stars = 5;
+
+export enum Options {
+  POPULAR = 'Popular',
+  HIGH = 'Price: low to high',
+  LOW = 'Price: high to low',
+  TOP = 'Top rated first',
+}
+
+export enum AppRoute {
+  LOGIN = '/login',
+  FAVORITES = '/favorites',
+  ROOM = '/offer',
+  ROOT = '/',
+  // Game = '/game'
+}
+
+export const APIRoute = {
+  HOTELS: '/hotels',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+  FAVORITE: '/favorite',
+  COMMENTS: '/comments',
+};
+
+export interface AuthData {
+  email: string;
+  password: string;
+}
+
+export interface UserData {
+  id: number;
+  email: string;
+  token: string;
+  avatarUrl: string;
+}
+
+export enum AuthorizationStatus {
+  AUTH = 'auth',
+  NO_AUTH = 'no_auth',
+  UNKNOWN = 'unknown',
+}
+
+export interface UserProcess {
+  authorizationStatus: AuthorizationStatus;
+  email: string;
+  avatarUrl: string;
+}
+
+export interface NewComment {
+  idOffer: number;
+  review: {
+    comment: string;
+    rating: number;
+  }
+}
+
+export interface FavoriteHotel {
+  id: number;
+  isFavorite: boolean;
+}
