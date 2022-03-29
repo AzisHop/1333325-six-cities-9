@@ -1,6 +1,6 @@
 import {Reducers, State} from '../../types/state';
-import {Cities, Hotel, Options} from '../../types/types';
-import {createSelector} from "reselect";
+import {Hotel, Options} from '../../types/types';
+import {createSelector} from 'reselect';
 
 export const getCity = (state: State): string => state[Reducers.MAIN].city;
 export const getPlaces = (state: State): Hotel[] => state[Reducers.MAIN].places;
@@ -23,19 +23,5 @@ export const getOrderedPlaces = createSelector(
       default:
         return places;
     }
-})
+  });
 
-
-
-function getSortPlaces(places: Hotel[], option: Options) {
-  switch (option) {
-    case Options.HIGH:
-      return places.sort((place1, place2) => place2.price - place1.price);
-    case Options.LOW:
-      return places.sort((place1, place2) => place1.price - place2.price);
-    case Options.TOP:
-      return places.sort((place1, place2) => place2.rating - place1.rating);
-    default:
-      return places;
-  }
-}

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {PlaceData, Reducers} from '../../types/state';
-import {CommentData, Hotel} from "../../types/types";
+import {CommentData, Hotel} from '../../types/types';
 
 const initialState: PlaceData = {
   activePlaceId: -1,
@@ -26,9 +26,9 @@ export const placeReducer = createSlice({
     loadNearbyOffers: (state, action: PayloadAction<Hotel[]>) => {
       state.nearbyOffers = action.payload;
     },
-    setFavoriteHotel: (state, action: PayloadAction<Hotel>) => {
+    setFavoriteHotel: (state, action: PayloadAction<boolean>) => {
       if (state.place !== null) {
-        state.place.isFavorite = !state.place.isFavorite;
+        state.place.isFavorite = action.payload;
       }
     },
     setFavoriteNearbyOffers: (state, action: PayloadAction<Hotel>) => {

@@ -28,7 +28,7 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
 
   const handleSubmit = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    setIsDisabled(true)
+    setIsDisabled(true);
     const newComment: NewComment = {
       idOffer: roomId,
       review: {

@@ -1,6 +1,5 @@
-import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {apiTemp, AppDispatch, State} from '../types/state.js';
+import {apiTemp} from '../types/state.js';
 import {
   APIRoute,
   AuthData,

@@ -1,6 +1,6 @@
 import {CommentData, Hotel, Options, UserProcess} from './types';
 import {store} from '../store';
-import {AxiosInstance} from "axios";
+import {AxiosInstance} from 'axios';
 
 export enum Reducers {
   MAIN = 'main',

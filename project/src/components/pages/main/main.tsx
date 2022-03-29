@@ -1,12 +1,12 @@
 import PlacesList from '../../place/places-list';
-import {Options, TypePage, Hotel, AuthorizationStatus, Cities} from '../../../types/types';
+import {Options, TypePage, AuthorizationStatus} from '../../../types/types';
 import SortingCities from '../../sorting-cities/sorting-cities';
 import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
 import {setCurrentCity, setSortOption} from '../../../store/main-reducer/mainReducer';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
-import {getCity, getOrderedPlaces, getPlaces, getSortOption} from '../../../store/main-reducer/selectors';
+import {getCity, getOrderedPlaces, getSortOption} from '../../../store/main-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchHotelsAction} from '../../../store/api-actions';
 import Header from '../../header/header';
@@ -22,7 +22,7 @@ export default function Main(): JSX.Element {
   const avatarUrl =useAppSelector(getAvatarUrl);
   const currentCity = useAppSelector(getCity);
   const sortOption = useAppSelector(getSortOption);
-  const places = useAppSelector(getOrderedPlaces)
+  const places = useAppSelector(getOrderedPlaces);
 
   const handleClickCity = (name: string) => {
     dispatch(setCurrentCity(name));
@@ -56,15 +56,3 @@ export default function Main(): JSX.Element {
   );
 }
 
-function getSortPlaces(places: Hotel[], option: Options) {
-  switch (option) {
-    case Options.HIGH:
-      return places.sort((place1, place2) => place2.price - place1.price);
-    case Options.LOW:
-      return places.sort((place1, place2) => place1.price - place2.price);
-    case Options.TOP:
-      return places.sort((place1, place2) => place2.rating - place1.rating);
-    default:
-      return places;
-  }
-}

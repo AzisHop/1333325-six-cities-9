@@ -1,9 +1,6 @@
 import cn from 'classnames';
 import {Hotel, PageInfo, TypePage, AppRoute} from '../../types/types';
 import {Link} from 'react-router-dom';
-import {useAppDispatch} from '../../hooks';
-import {setActivePlaceId} from '../../store/place-reducer/place-reducer';
-import {useCallback} from 'react';
 import {getRatingInStar} from '../../utils/utils';
 import {BookmarkButton} from '../bookmark-button/bookmark-button';
 
