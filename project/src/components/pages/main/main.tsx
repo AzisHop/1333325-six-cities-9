@@ -41,7 +41,7 @@ export default function Main(): JSX.Element {
             <section className="cities__places places">
               <h2 className="visually-hidden">{'Places'}</h2>
               <b className="places__found">{places.length} places to stay in {currentCity}</b>
-              <SortingCities handleSortClick={handleSortClick} sortOption={sortOption} />
+              <SortingCities onSortClick={handleSortClick} sortOption={sortOption} />
               <PlacesList places={places} typePage={TypePage.MAIN} />
             </section>
             <div className="cities__right-section">

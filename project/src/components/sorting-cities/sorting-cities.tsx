@@ -5,9 +5,9 @@ import {useState} from 'react';
 const options = [Options.POPULAR, Options.HIGH, Options.LOW, Options.TOP];
 interface SortingCitiesProps {
   sortOption: Options;
-  handleSortClick: (option: Options) => void;
+  onSortClick: (option: Options) => void;
 }
-export default function SortingCities({sortOption, handleSortClick}: SortingCitiesProps): JSX.Element {
+export default function SortingCities({sortOption, onSortClick}: SortingCitiesProps): JSX.Element {
   const [active, setActive] = useState<boolean>(false);
   const optionsClass = cn({
     'places__options places__options--custom': true,
@@ -35,7 +35,7 @@ export default function SortingCities({sortOption, handleSortClick}: SortingCiti
             <li
               key={option}
               className={optionClass}
-              onClick={() => handleSortClick(option)}
+              onClick={() => onSortClick(option)}
               tabIndex={0}
             >
               {option}

@@ -11,7 +11,6 @@ import Header from '../../header/header';
 import {getAuth, getEmail} from '../../../store/user-reducer/selectors';
 import CommentForm from '../../comment-form/comment-form';
 import {getRatingInStar} from '../../../utils/utils';
-import {setFavoriteHotel} from '../../../store/place-reducer/place-reducer';
 import {BookmarkButton} from '../../bookmark-button/bookmark-button';
 
 export default function Room(): JSX.Element {
@@ -22,7 +21,6 @@ export default function Room(): JSX.Element {
     dispatch(fetchOffer(roomId));
     dispatch(fetchComments(roomId));
     dispatch(fetchNearOffers(roomId));
-    dispatch(setFavoriteHotel(false));
   }, [roomId, dispatch, useAppSelector(getAuth)]);
   const userAuth = useAppSelector(getAuth);
   const email = useAppSelector(getEmail);
