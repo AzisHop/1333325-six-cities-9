@@ -22,10 +22,6 @@ export default function Main(): JSX.Element {
   const avatarUrl =useAppSelector(getAvatarUrl);
   const currentCity = useAppSelector(getCity);
   const sortOption = useAppSelector(getSortOption);
-  // const places = getSortPlaces([...useAppSelector(getPlaces)], sortOption)
-  //   .filter(({city}) => city.name === currentCity);
-
-  // const places = useAppSelector(state => getOrderedPlaces(state, sortOption, currentCity))
   const places = useAppSelector(getOrderedPlaces)
 
   const handleClickCity = (name: string) => {
