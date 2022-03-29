@@ -12,7 +12,7 @@ export const mainReducer = createSlice({
   name: Reducers.MAIN,
   initialState,
   reducers: {
-    setCurrentCity: (state, action: PayloadAction<Cities>) => {
+    setCurrentCity: (state, action: PayloadAction<string>) => {
       state.city = action.payload;
 
     },

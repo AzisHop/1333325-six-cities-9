@@ -13,13 +13,13 @@ export default function SortingCities({sortOption, handleSortClick}: SortingCiti
     'places__options places__options--custom': true,
     'places__options--opened': active,
   });
-  const handleClickActive = () => {
+  const onClickActive = () => {
     setActive(!active);
   };
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">{'Sort by'}</span>
-      <span className="places__sorting-type" tabIndex={0} onClick={handleClickActive}>
+      <span className="places__sorting-type" tabIndex={0} onClick={onClickActive}>
         {sortOption}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select" />

@@ -1,12 +1,12 @@
 import PlacesList from '../../place/places-list';
-import {Options, TypePage, Hotel, AuthorizationStatus} from '../../../types/types';
+import {Options, TypePage, Hotel, AuthorizationStatus, Cities} from '../../../types/types';
 import SortingCities from '../../sorting-cities/sorting-cities';
 import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
 import {setCurrentCity, setSortOption} from '../../../store/main-reducer/mainReducer';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
-import {getCity, getPlaces, getSortOption} from '../../../store/main-reducer/selectors';
+import {getCity, getOrderedPlaces, getPlaces, getSortOption} from '../../../store/main-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchHotelsAction} from '../../../store/api-actions';
 import Header from '../../header/header';
@@ -22,8 +22,11 @@ export default function Main(): JSX.Element {
   const avatarUrl =useAppSelector(getAvatarUrl);
   const currentCity = useAppSelector(getCity);
   const sortOption = useAppSelector(getSortOption);
-  const places = getSortPlaces([...useAppSelector(getPlaces)], sortOption)
-    .filter(({city}) => city.name === currentCity);
+  // const places = getSortPlaces([...useAppSelector(getPlaces)], sortOption)
+  //   .filter(({city}) => city.name === currentCity);
+
+  // const places = useAppSelector(state => getOrderedPlaces(state, sortOption, currentCity))
+  const places = useAppSelector(getOrderedPlaces)
 
   const handleClickCity = (name: string) => {
     dispatch(setCurrentCity(name));
