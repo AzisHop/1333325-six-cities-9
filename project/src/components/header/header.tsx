@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../types/types';
 import {logoutAction} from '../../store/api-actions';
 import {useAppDispatch} from '../../hooks';
+import browserHistory from '../../browser-history';
 
 interface HeaderProps {
   isAuth: boolean;
@@ -12,8 +13,13 @@ interface HeaderProps {
 
 export default function Header({isAuth, email, page = AppRoute.ROOT, avatarUrl = ''}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const handleClick = () => {
+  const handleClickSign = () => {
     dispatch(logoutAction());
+  };
+  const handleClickEmail = () => {
+    if (!isAuth) {
+      browserHistory.push(AppRoute.LOGIN);
+    }
   };
   return (
     <header className="header">
@@ -31,8 +37,8 @@ export default function Header({isAuth, email, page = AppRoute.ROOT, avatarUrl =
                   (
                     <>
                       <li className="header__nav-item user">
-                        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
-                          <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: avatarUrl}}>
+                        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES} onClick={handleClickEmail}>
+                          <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${avatarUrl})`}}>
                           </div>
                           <span className="header__user-name user__name">{email}</span>
                         </Link>
@@ -40,7 +46,7 @@ export default function Header({isAuth, email, page = AppRoute.ROOT, avatarUrl =
 
 
                       <li className="header__nav-item">
-                        <Link className="header__nav-link" to={page} onClick={handleClick}>
+                        <Link className="header__nav-link" to={page} onClick={handleClickSign}>
                           <span className="header__signout">Sign out</span>
                         </Link>
                       </li>

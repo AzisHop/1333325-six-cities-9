@@ -11,7 +11,7 @@ import {
   FavoriteHotel,
   AppRoute
 } from '../types/types';
-import {loadPlaces, setFavoriteMain} from './main-reducer/mainReducer';
+import {loadFavoritePlaces, loadPlaces, setFavoriteMain} from './main-reducer/mainReducer';
 import {loadPlace, loadComments, loadNearbyOffers, setFavoriteNearbyOffers, setFavoriteHotel} from './place-reducer/place-reducer';
 import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
@@ -36,7 +36,6 @@ export const checkAuthAction = createAsyncThunk<void, undefined, apiTemp>(
       const {data} = await api.get<UserData>(APIRoute.LOGIN);
       dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch(error) {
-      // console.log(error);
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
     }
   },
@@ -126,8 +125,21 @@ export const changeFavorite = createAsyncThunk<void, FavoriteHotel, apiTemp>(
       dispatch(setFavoriteMain(data));
       dispatch(setFavoriteNearbyOffers(data));
       dispatch(setFavoriteHotel(data.isFavorite));
+      dispatch(fetchFavorites());
     } catch (error) {
       browserHistory.push(AppRoute.LOGIN);
+    }
+  },
+);
+
+export const fetchFavorites = createAsyncThunk<void, undefined, apiTemp>(
+  'data/fetchHotels',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Hotel[]>(APIRoute.FAVORITE);
+      dispatch(loadFavoritePlaces(data));
+    } catch (error) {
+      // console.log(error);
     }
   },
 );

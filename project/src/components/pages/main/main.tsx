@@ -1,16 +1,17 @@
 import PlacesList from '../../place/places-list';
-import {Options, TypePage, AuthorizationStatus} from '../../../types/types';
+import {Options, TypePage, AuthorizationStatus, CitiesLocation} from '../../../types/types';
 import SortingCities from '../../sorting-cities/sorting-cities';
 import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
 import {setCurrentCity, setSortOption} from '../../../store/main-reducer/mainReducer';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
-import {getCity, getOrderedPlaces, getSortOption} from '../../../store/main-reducer/selectors';
+import {getActivePlaceId, getCity, getOrderedPlaces, getSortOption} from '../../../store/main-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchHotelsAction} from '../../../store/api-actions';
 import Header from '../../header/header';
 import {getAuth, getAvatarUrl, getEmail} from '../../../store/user-reducer/selectors';
+import Map from '../../map/map';
 
 export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,6 +24,8 @@ export default function Main(): JSX.Element {
   const currentCity = useAppSelector(getCity);
   const sortOption = useAppSelector(getSortOption);
   const places = useAppSelector(getOrderedPlaces);
+  const cityLocation = CitiesLocation.filter((city) => city.name === currentCity)[0];
+  const activePlace = useAppSelector(getActivePlaceId);
 
   const handleClickCity = (name: string) => {
     dispatch(setCurrentCity(name));
@@ -45,7 +48,9 @@ export default function Main(): JSX.Element {
               <PlacesList places={places} typePage={TypePage.MAIN} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map">
+                <Map city={cityLocation} places={places} activePlace={activePlace}/>
+              </section>
             </div>
           </div>
         )}

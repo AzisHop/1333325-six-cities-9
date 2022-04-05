@@ -12,6 +12,7 @@ import {getAuth, getEmail} from '../../../store/user-reducer/selectors';
 import CommentForm from '../../comment-form/comment-form';
 import {getRatingInStar} from '../../../utils/utils';
 import {BookmarkButton} from '../../bookmark-button/bookmark-button';
+import Map from '../../map/map';
 
 export default function Room(): JSX.Element {
   const param = useParams();
@@ -27,11 +28,12 @@ export default function Room(): JSX.Element {
   const comments = useAppSelector(getComments);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const hotel: Hotel | null = useAppSelector(getPlace);
+  const mapPlaces = nearbyOffers.slice();
 
   if (hotel === null) {
     return (<div/>); // ToDo обработать нормально ошибку
   }
-
+  mapPlaces.push(hotel);
   const ratingInStars = getRatingInStar(hotel.rating, 150);
   let images = hotel.images || [];
 
@@ -154,7 +156,9 @@ export default function Room(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map city={hotel.city} places={mapPlaces} activePlace={hotel.id}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

@@ -12,6 +12,8 @@ export interface MainData {
   city: string;
   places: Hotel[];
   sortingOption: Options;
+  favoritePlaces: Hotel[];
+  activePlaceMouseId: number;
 }
 
 export interface PlaceData {
