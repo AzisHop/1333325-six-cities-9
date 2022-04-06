@@ -1,4 +1,4 @@
-export {} // ToDo оставить до тестов, чтобы линтер не ругался
+export {}; // ToDo оставить до тестов, чтобы линтер не ругался
 // import {PlacesProps} from '../components/place/places-list';
 // import {TypeHousing} from '../types/types';
 
