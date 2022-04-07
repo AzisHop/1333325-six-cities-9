@@ -10,15 +10,15 @@ export enum Reducers {
 
 export interface MainData {
   city: string;
-  places: Hotel[];
+  hotels: Hotel[];
   sortingOption: Options;
-  favoritePlaces: Hotel[];
+  favoriteHotels: Hotel[];
   activePlaceMouseId: number;
 }
 
 export interface PlaceData {
   activePlaceId: number;
-  place: Hotel | null;
+  hotel: Hotel | null;
   comments: CommentData[]
   nearbyHotels: Hotel[]
   isCurrentFavorite: boolean;

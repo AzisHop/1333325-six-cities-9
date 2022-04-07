@@ -6,7 +6,7 @@ import MainEmpty from './main-empty';
 
 import {setCurrentCity, setSortOption} from '../../../store/main-reducer/mainReducer';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
-import {getActivePlaceId, getCity, getOrderedPlaces, getSortOption} from '../../../store/main-reducer/selectors';
+import {getActivePlaceId, getCity, getOrderedHotels, getSortOption} from '../../../store/main-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchHotelsAction} from '../../../store/api-actions';
 import Header from '../../header/header';
@@ -21,7 +21,7 @@ export default function Main(): JSX.Element {
   const auth = useAppSelector(getAuth);
   const currentCity = useAppSelector(getCity);
   const sortOption = useAppSelector(getSortOption);
-  const places = useAppSelector(getOrderedPlaces);
+  const places = useAppSelector(getOrderedHotels);
   const cityLocation = CitiesLocation.filter((city) => city.name === currentCity)[0];
   const activePlace = useAppSelector(getActivePlaceId);
 
@@ -47,7 +47,7 @@ export default function Main(): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={cityLocation} places={places} activePlace={activePlace}/>
+                <Map city={cityLocation} hotels={places} activePlace={activePlace}/>
               </section>
             </div>
           </div>

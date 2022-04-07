@@ -2,7 +2,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../types/types';
 import {logoutAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getAvatarUrl, getEmail} from "../../store/user-reducer/selectors";
+import {getAvatarUrl, getEmail} from '../../store/user-reducer/selectors';
 
 interface HeaderProps {
   isAuth: boolean;

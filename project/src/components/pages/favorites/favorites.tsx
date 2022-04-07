@@ -8,7 +8,7 @@ import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {getAuth} from '../../../store/user-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchFavorites} from '../../../store/api-actions';
-import {getFavoritePlaces} from '../../../store/main-reducer/selectors';
+import {getFavoriteHotels} from '../../../store/main-reducer/selectors';
 
 export default function Favorites(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ export default function Favorites(): JSX.Element {
     dispatch(fetchFavorites());
   }, [dispatch]);
 
-  const data = useAppSelector(getFavoritePlaces);
+  const data = useAppSelector(getFavoriteHotels);
   const isEmpty = !data.length;
   const pageClass = cn({
     'page': true,

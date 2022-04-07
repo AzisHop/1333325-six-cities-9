@@ -7,23 +7,23 @@ import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
 import {City, Hotel} from '../../types/types';
 
-export function getPoints(offers: Hotel[]) {
-  return offers.map((offer) => Object({
-    id: offer.id,
-    location: offer.location,
+export function getPoints(hotels: Hotel[]) {
+  return hotels.map((hotel) => Object({
+    id: hotel.id,
+    location: hotel.location,
   }));
 }
 
 interface MapProps {
   city: City;
-  places: Hotel[]
+  hotels: Hotel[]
   activePlace: number;
 }
 
-export default function Map({city, places, activePlace}: MapProps) {
+export default function Map({city, hotels, activePlace}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
-  const points = getPoints(places);
+  const points = getPoints(hotels);
   const {location: {latitude: lat, longitude: lng, zoom}} = city;
 
   useEffect(() => {

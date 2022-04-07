@@ -21,13 +21,13 @@ export default function Place({
     'place-card': true,
     'cities__place-card': typePage === TypePage.MAIN,
     'favorites__card': typePage === TypePage.FAVORITES,
-    'near-places__card': typePage === TypePage.OFFER,
+    'near-places__card': typePage === TypePage.HOTEL,
   });
   const wrapperImgClass = cn({
     'place-card__image-wrapper': true,
     'cities__image-wrapper': typePage === TypePage.MAIN,
     'favorites__image-wrapper': typePage === TypePage.FAVORITES,
-    'near-places__image-wrapper': typePage === TypePage.OFFER,
+    'near-places__image-wrapper': typePage === TypePage.HOTEL,
 
   });
   const infoCardClass = cn({

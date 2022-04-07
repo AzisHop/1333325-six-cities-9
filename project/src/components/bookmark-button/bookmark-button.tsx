@@ -13,14 +13,14 @@ export function BookmarkButton({id, isFavorite, page = TypePage.MAIN}: BookmarkB
     'place-card__bookmark-button': page === TypePage.MAIN,
     'place-card__bookmark-button--active': isFavorite && (page === TypePage.MAIN),
 
-    'property__bookmark-button': page === TypePage.OFFER,
-    'property__bookmark-button--active': isFavorite && (page === TypePage.OFFER),
+    'property__bookmark-button': page === TypePage.HOTEL,
+    'property__bookmark-button--active': isFavorite && (page === TypePage.HOTEL),
 
     'button': true,
   });
   const bookmarkIconClass = cn({
     'place-card__bookmark-icon': page === TypePage.MAIN,
-    'property__bookmark-icon': page === TypePage.OFFER,
+    'property__bookmark-icon': page === TypePage.HOTEL,
   });
 
   const bookmarkSizeClass = {

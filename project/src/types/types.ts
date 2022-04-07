@@ -30,7 +30,7 @@ export interface PageInfo {
 export enum TypePage {
   MAIN = 'main',
   FAVORITES = 'favorites',
-  OFFER = 'property',
+  HOTEL = 'property',
 }
 
 export interface Hotel {
@@ -130,7 +130,7 @@ export interface UserProcess {
 }
 
 export interface NewComment {
-  idOffer: number;
+  idHotel: number;
   review: {
     comment: string;
     rating: number;
