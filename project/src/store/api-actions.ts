@@ -16,6 +16,7 @@ import {loadHotel, loadComments, loadNearbyHotels, setFavoriteNearbyHotels, setF
 import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
 import browserHistory from '../browser-history';
+import {errorHandle} from '../services/error-handle';
 
 export const fetchHotelsAction = createAsyncThunk<void, undefined, ApiTemp>(
   'data/fetchHotels',
@@ -24,7 +25,7 @@ export const fetchHotelsAction = createAsyncThunk<void, undefined, ApiTemp>(
       const {data} = await api.get<Hotel[]>(APIRoute.HOTELS);
       dispatch(loadHotels( data));
     } catch (error) {
-      // console.log(error);
+      errorHandle(error);
     }
   },
 );
@@ -34,9 +35,11 @@ export const checkAuthAction = createAsyncThunk<void, undefined, ApiTemp>(
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<UserData>(APIRoute.LOGIN);
+      console.log(data);
       dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch(error) {
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+      errorHandle(error);
     }
   },
 );
@@ -49,7 +52,7 @@ export const loginAction = createAsyncThunk<void, AuthData, ApiTemp>(
       saveToken(data.token);
       dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch (error) {
-      // console.log(error);
+      errorHandle(error);
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
     }
   },
@@ -63,7 +66,7 @@ export const logoutAction = createAsyncThunk<void, undefined, ApiTemp>(
       dropToken();
       dispatch(requireAuthorization([AuthorizationStatus.NO_AUTH, '', '']));
     } catch (error) {
-      // console.log(error);
+      errorHandle(error);
     }
   },
 );
@@ -75,7 +78,7 @@ export const fetchOffer = createAsyncThunk<void, number, ApiTemp>(
       const {data} = await api.get<Hotel>(`${APIRoute.HOTELS}/${id}`);
       dispatch(loadHotel(data));
     } catch (error) {
-      // console.log(error);
+      errorHandle(error);
     }
   },
 );
@@ -87,7 +90,7 @@ export const fetchComments = createAsyncThunk<void, number, ApiTemp>(
       const {data} = await api.get<CommentData[]>(`${APIRoute.COMMENTS}/${id}`);
       dispatch(loadComments(data));
     } catch (error) {
-      // console.log(error);
+      errorHandle(error);
     }
   },
 );
@@ -99,7 +102,7 @@ export const fetchNearHotels = createAsyncThunk<void, number, ApiTemp>(
       const {data} = await api.get<Hotel[]>(`${APIRoute.HOTELS}/${id}/nearby`);
       dispatch(loadNearbyHotels(data));
     } catch (error) {
-      // console.log(error);
+      errorHandle(error);
     }
   },
 );
@@ -112,7 +115,7 @@ export const createComment = createAsyncThunk<void, NewComment, ApiTemp>(
       const {data} = await api.post<CommentData[]>(`${APIRoute.COMMENTS}/${newComment.idHotel}`, {comment, rating});
       dispatch(loadComments(data));
     } catch (error) {
-      // console.log(error); // ToDO сделать обработку ошибок для всего
+      errorHandle(error);
     }
   },
 );
@@ -128,6 +131,7 @@ export const changeFavorite = createAsyncThunk<void, FavoriteHotel, ApiTemp>(
       dispatch(fetchFavorites());
     } catch (error) {
       browserHistory.push(AppRoute.LOGIN);
+      errorHandle(error);
     }
   },
 );
@@ -139,7 +143,7 @@ export const fetchFavorites = createAsyncThunk<void, undefined, ApiTemp>(
       const {data} = await api.get<Hotel[]>(APIRoute.FAVORITE);
       dispatch(loadFavoriteHotels(data));
     } catch (error) {
-      // console.log(error);
+      errorHandle(error);
     }
   },
 );

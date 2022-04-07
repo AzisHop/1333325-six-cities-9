@@ -152,3 +152,11 @@ export interface City {
 }
 
 export type Location = Omit<City, 'name'>;
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
+
+export type ErrorType = unknown;
