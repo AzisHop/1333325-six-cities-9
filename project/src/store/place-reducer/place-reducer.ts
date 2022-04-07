@@ -6,7 +6,7 @@ const initialState: PlaceData = {
   activePlaceId: -1,
   place: null,
   comments: [],
-  nearbyOffers: [],
+  nearbyHotels: [],
   isCurrentFavorite: false,
 };
 
@@ -24,7 +24,7 @@ export const placeReducer = createSlice({
       state.comments = action.payload;
     },
     loadNearbyOffers: (state, action: PayloadAction<Hotel[]>) => {
-      state.nearbyOffers = action.payload;
+      state.nearbyHotels = action.payload;
     },
     setFavoriteHotel: (state, action: PayloadAction<boolean>) => {
       if (state.place !== null) {
@@ -32,10 +32,10 @@ export const placeReducer = createSlice({
       }
     },
     setFavoriteNearbyOffers: (state, action: PayloadAction<Hotel>) => {
-      if (!state.nearbyOffers.length) {
+      if (!state.nearbyHotels.length) {
         return;
       }
-      state.nearbyOffers.forEach((offer) => {
+      state.nearbyHotels.forEach((offer) => {
         if (offer.id === action.payload.id) {
           offer.isFavorite = !offer.isFavorite;
         }

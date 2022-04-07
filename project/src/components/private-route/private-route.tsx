@@ -1,16 +1,23 @@
 import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../types/types';
+import {useAppDispatch, useAppSelector} from "../../hooks";
+import {checkAuthAction} from "../../store/api-actions";
+import {useEffect} from "react";
+import {getAuth} from "../../store/user-reducer/selectors";
 
 type PrivateRouteProps = {
-  authorizationStatus: AuthorizationStatus;
   children: JSX.Element;
 }
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {authorizationStatus, children} = props;
-
+  const {children} = props;
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(checkAuthAction());
+  })
+  const auth = useAppSelector(getAuth);
   return (
-    authorizationStatus === AuthorizationStatus.AUTH
+    auth === AuthorizationStatus.AUTH
       ? children
       : <Navigate to={AppRoute.LOGIN} />
   );

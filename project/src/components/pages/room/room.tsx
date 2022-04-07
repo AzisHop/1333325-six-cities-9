@@ -8,7 +8,7 @@ import {getComments, getNearbyOffers, getPlace} from '../../../store/place-reduc
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Header from '../../header/header';
-import {getAuth, getEmail} from '../../../store/user-reducer/selectors';
+import {getAuth} from '../../../store/user-reducer/selectors';
 import CommentForm from '../../comment-form/comment-form';
 import {getRatingInStar} from '../../../utils/utils';
 import {BookmarkButton} from '../../bookmark-button/bookmark-button';
@@ -24,16 +24,13 @@ export default function Room(): JSX.Element {
     dispatch(fetchNearOffers(roomId));
   }, [roomId, dispatch, useAppSelector(getAuth)]);
   const userAuth = useAppSelector(getAuth);
-  const email = useAppSelector(getEmail);
   const comments = useAppSelector(getComments);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const hotel: Hotel | null = useAppSelector(getPlace);
-  const mapPlaces = nearbyOffers.slice();
-
   if (hotel === null) {
     return (<div/>); // ToDo обработать нормально ошибку
   }
-  mapPlaces.push(hotel);
+  const mapPlaces = [...nearbyOffers, hotel];
   const ratingInStars = getRatingInStar(hotel.rating, 150);
   let images = hotel.images || [];
 
@@ -51,7 +48,6 @@ export default function Room(): JSX.Element {
   return (
     <div className="page">
       <Header isAuth={userAuth === AuthorizationStatus.AUTH}
-        email={email}
         page={`${AppRoute.ROOM}/${roomId}`}
       />
 

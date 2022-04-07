@@ -5,7 +5,7 @@ import FavoritesEmpty from './favorites-empty';
 import {AuthorizationStatus} from '../../../types/types';
 import Header from '../../header/header';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
-import {getAuth, getAvatarUrl, getEmail} from '../../../store/user-reducer/selectors';
+import {getAuth} from '../../../store/user-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchFavorites} from '../../../store/api-actions';
 import {getFavoritePlaces} from '../../../store/main-reducer/selectors';
@@ -13,15 +13,12 @@ import {getFavoritePlaces} from '../../../store/main-reducer/selectors';
 export default function Favorites(): JSX.Element {
   const dispatch = useAppDispatch();
   const auth = useAppSelector(getAuth);
-  const email = useAppSelector(getEmail);
-  const avatarUrl =useAppSelector(getAvatarUrl);
 
   useEffect(() => {
     dispatch(fetchFavorites());
   }, [dispatch]);
 
-  // const data = favoritesPage; // ToDo заменить данными с сервера
-  const data = useAppSelector(getFavoritePlaces); // ToDo заменить данными с сервера
+  const data = useAppSelector(getFavoritePlaces);
   const isEmpty = !data.length;
   const pageClass = cn({
     'page': true,
@@ -38,7 +35,7 @@ export default function Favorites(): JSX.Element {
   });
   return (
     <div className={pageClass}>
-      <Header isAuth={auth === AuthorizationStatus.AUTH} email={email} avatarUrl={avatarUrl}/>
+      <Header isAuth={auth === AuthorizationStatus.AUTH} />
 
       <main className={mainClass}>
         <div className="page__favorites-container container">

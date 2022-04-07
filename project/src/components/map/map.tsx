@@ -1,5 +1,4 @@
 import React, {useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 
 import {CustomPin} from '../../map-settings';
@@ -21,7 +20,7 @@ interface MapProps {
   activePlace: number;
 }
 
-function Map({city, places, activePlace}: MapProps) {
+export default function Map({city, places, activePlace}: MapProps) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const points = getPoints(places);
@@ -61,10 +60,3 @@ function Map({city, places, activePlace}: MapProps) {
     </div>
   );
 }
-
-Map.propTypes = {
-  city: PropTypes.string.isRequired,
-  // activePlaceId: PropTypes.string,
-};
-
-export default Map;

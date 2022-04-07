@@ -20,7 +20,7 @@ export interface PlaceData {
   activePlaceId: number;
   place: Hotel | null;
   comments: CommentData[]
-  nearbyOffers: Hotel[]
+  nearbyHotels: Hotel[]
   isCurrentFavorite: boolean;
 }
 

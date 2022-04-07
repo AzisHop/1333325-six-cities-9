@@ -1,25 +1,20 @@
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../types/types';
 import {logoutAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
-import browserHistory from '../../browser-history';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getAvatarUrl, getEmail} from "../../store/user-reducer/selectors";
 
 interface HeaderProps {
   isAuth: boolean;
-  email: string;
   page?: string;
-  avatarUrl?: string;
 }
 
-export default function Header({isAuth, email, page = AppRoute.ROOT, avatarUrl = ''}: HeaderProps): JSX.Element {
+export default function Header({isAuth, page = AppRoute.ROOT}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const handleClickSign = () => {
+  const email = useAppSelector(getEmail);
+  const avatarUrl =useAppSelector(getAvatarUrl);
+  const handleSignClick = () => {
     dispatch(logoutAction());
-  };
-  const handleClickEmail = () => {
-    if (!isAuth) {
-      browserHistory.push(AppRoute.LOGIN);
-    }
   };
   return (
     <header className="header">
@@ -37,7 +32,7 @@ export default function Header({isAuth, email, page = AppRoute.ROOT, avatarUrl =
                   (
                     <>
                       <li className="header__nav-item user">
-                        <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES} onClick={handleClickEmail}>
+                        <Link className="header__nav-link header__nav-link--profile" to={isAuth ? AppRoute.FAVORITES : AppRoute.LOGIN}>
                           <div className="header__avatar-wrapper user__avatar-wrapper" style={{backgroundImage: `url(${avatarUrl})`}}>
                           </div>
                           <span className="header__user-name user__name">{email}</span>
@@ -45,8 +40,8 @@ export default function Header({isAuth, email, page = AppRoute.ROOT, avatarUrl =
                       </li>
 
 
-                      <li className="header__nav-item">
-                        <Link className="header__nav-link" to={page} onClick={handleClickSign}>
+                      <li className="header__nav-item" onClick={handleSignClick}>
+                        <Link className="header__nav-link" to={page}>
                           <span className="header__signout">Sign out</span>
                         </Link>
                       </li>

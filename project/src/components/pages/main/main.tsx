@@ -10,7 +10,7 @@ import {getActivePlaceId, getCity, getOrderedPlaces, getSortOption} from '../../
 import {useEffect} from 'react';
 import {fetchHotelsAction} from '../../../store/api-actions';
 import Header from '../../header/header';
-import {getAuth, getAvatarUrl, getEmail} from '../../../store/user-reducer/selectors';
+import {getAuth} from '../../../store/user-reducer/selectors';
 import Map from '../../map/map';
 
 export default function Main(): JSX.Element {
@@ -19,8 +19,6 @@ export default function Main(): JSX.Element {
     dispatch(fetchHotelsAction());
   }, [dispatch]);
   const auth = useAppSelector(getAuth);
-  const email = useAppSelector(getEmail);
-  const avatarUrl =useAppSelector(getAvatarUrl);
   const currentCity = useAppSelector(getCity);
   const sortOption = useAppSelector(getSortOption);
   const places = useAppSelector(getOrderedPlaces);
@@ -35,7 +33,7 @@ export default function Main(): JSX.Element {
   };
   return (
     <div className="page page--gray page--main">
-      <Header isAuth={auth === AuthorizationStatus.AUTH} email={email} avatarUrl={avatarUrl}/>
+      <Header isAuth={auth === AuthorizationStatus.AUTH} />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">{'Cities'}</h1>
         <MainTabs handleClickCity={handleClickCity} currentCity={currentCity}/>
