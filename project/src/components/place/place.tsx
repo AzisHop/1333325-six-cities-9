@@ -5,7 +5,7 @@ import {getRatingInStar} from '../../utils/utils';
 import {BookmarkButton} from '../bookmark-button/bookmark-button';
 import {MouseEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {setActivePlaceMouseId} from '../../store/main-reducer/mainReducer';
+import {setActiveHotelId} from '../../store/main-reducer/mainReducer';
 
 interface PlaceProps {
   place: Hotel;
@@ -41,13 +41,13 @@ export default function Place({
   const ratingInStars = getRatingInStar(place.rating);
 
   const dispatch = useAppDispatch();
-  const handleMousePlace = (event: MouseEvent<HTMLElement>) => {
+  const handleMouseEnter = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    dispatch(setActivePlaceMouseId(place.id));
+    dispatch(setActiveHotelId(place.id));
   };
 
   return (
-    <article className={articleClass} onMouseEnter={handleMousePlace}>
+    <article className={articleClass} onMouseEnter={handleMouseEnter}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>

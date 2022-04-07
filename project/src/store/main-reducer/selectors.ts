@@ -6,7 +6,7 @@ export const getCity = (state: State): string => state[Reducers.MAIN].city;
 export const getHotels = (state: State): Hotel[] => state[Reducers.MAIN].hotels;
 export const getSortOption = (state: State): Options => state[Reducers.MAIN].sortingOption;
 export const getFavoriteHotels = (state: State) : Hotel[] => state[Reducers.MAIN].favoriteHotels;
-export const getActivePlaceId = (state: State): number => state[Reducers.MAIN].activePlaceMouseId;
+export const getActiveHotelId = (state: State): number => state[Reducers.MAIN].activeHotelId;
 
 export const getOrderedHotels = createSelector(
   getSortOption,

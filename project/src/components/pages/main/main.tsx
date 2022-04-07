@@ -1,17 +1,18 @@
 import PlacesList from '../../place/places-list';
-import {Options, TypePage, AuthorizationStatus, CitiesLocation} from '../../../types/types';
+import {Options, TypePage, AuthorizationStatus} from '../../../types/types';
 import SortingCities from '../../sorting-cities/sorting-cities';
 import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
 import {setCurrentCity, setSortOption} from '../../../store/main-reducer/mainReducer';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
-import {getActivePlaceId, getCity, getOrderedHotels, getSortOption} from '../../../store/main-reducer/selectors';
+import {getActiveHotelId, getCity, getOrderedHotels, getSortOption} from '../../../store/main-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchHotelsAction} from '../../../store/api-actions';
 import Header from '../../header/header';
 import {getAuth} from '../../../store/user-reducer/selectors';
 import Map from '../../map/map';
+import {CitiesLocation} from '../../../utils/utils';
 
 export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ export default function Main(): JSX.Element {
   const sortOption = useAppSelector(getSortOption);
   const places = useAppSelector(getOrderedHotels);
   const cityLocation = CitiesLocation.filter((city) => city.name === currentCity)[0];
-  const activePlace = useAppSelector(getActivePlaceId);
+  const activePlace = useAppSelector(getActiveHotelId);
 
   const handleClickCity = (name: string) => {
     dispatch(setCurrentCity(name));
@@ -47,7 +48,7 @@ export default function Main(): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={cityLocation} hotels={places} activePlace={activePlace}/>
+                <Map location={cityLocation} hotels={places} activePlace={activePlace}/>
               </section>
             </div>
           </div>

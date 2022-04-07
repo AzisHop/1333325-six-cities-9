@@ -13,7 +13,7 @@ export interface MainData {
   hotels: Hotel[];
   sortingOption: Options;
   favoriteHotels: Hotel[];
-  activePlaceMouseId: number;
+  activeHotelId: number;
 }
 
 export interface PlaceData {
@@ -24,7 +24,7 @@ export interface PlaceData {
   isCurrentFavorite: boolean;
 }
 
-export interface apiTemp {
+export interface ApiTemp {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

@@ -1,11 +1,11 @@
 import React, {useEffect, useRef} from 'react';
 import leaflet from 'leaflet';
 
-import {CustomPin} from '../../map-settings';
+import {CustomPin} from './map-settings';
 import useMap from '../../hooks/use-map';
 
 import 'leaflet/dist/leaflet.css';
-import {City, Hotel} from '../../types/types';
+import {Hotel, Location} from '../../types/types';
 
 export function getPoints(hotels: Hotel[]) {
   return hotels.map((hotel) => Object({
@@ -15,16 +15,16 @@ export function getPoints(hotels: Hotel[]) {
 }
 
 interface MapProps {
-  city: City;
+  location: Location;
   hotels: Hotel[]
   activePlace: number;
 }
 
-export default function Map({city, hotels, activePlace}: MapProps) {
+export default function Map({location, hotels, activePlace}: MapProps) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const map = useMap(mapRef, location);
   const points = getPoints(hotels);
-  const {location: {latitude: lat, longitude: lng, zoom}} = city;
+  const {location: {latitude: lat, longitude: lng, zoom}} = location;
 
   useEffect(() => {
     const markers = leaflet.layerGroup();
@@ -50,7 +50,7 @@ export default function Map({city, hotels, activePlace}: MapProps) {
       markers.clearLayers();
     };
 
-  }, [lat, lng, zoom, city, activePlace, map, points]);
+  }, [lat, lng, zoom, location, activePlace, map, points]);
 
   return (
     <div

@@ -7,7 +7,7 @@ const initialState: MainData = {
   hotels: [],
   sortingOption: Options.POPULAR,
   favoriteHotels: [],
-  activePlaceMouseId: -1,
+  activeHotelId: -1,
 };
 
 export const mainReducer = createSlice({
@@ -27,11 +27,8 @@ export const mainReducer = createSlice({
     setSortOption: (state, action: PayloadAction<Options>) => {
       state.sortingOption = action.payload;
     },
-    setActivePlaceMouseId: (state, action: PayloadAction<number>) => {
-      state.activePlaceMouseId = action.payload;
-    },
-    setActivePlaceMouseLocation: (state, action: PayloadAction<number>) => {
-      state.activePlaceMouseId = action.payload;
+    setActiveHotelId: (state, action: PayloadAction<number>) => {
+      state.activeHotelId = action.payload;
     },
     setFavoriteMain: (state, action: PayloadAction<Hotel>) => {
       state.hotels.forEach((hotel) => {
@@ -49,5 +46,5 @@ export const {
   setSortOption,
   setFavoriteMain,
   loadFavoriteHotels,
-  setActivePlaceMouseId,
+  setActiveHotelId,
 } = mainReducer.actions;

@@ -153,7 +153,7 @@ export default function Room(): JSX.Element {
             </div>
           </div>
           <section className="property__map map">
-            <Map city={hotel.city} hotels={mapPlaces} activePlace={hotel.id}/>
+            <Map location={hotel.city} hotels={mapPlaces} activePlace={hotel.id}/>
           </section>
         </section>
         <div className="container">

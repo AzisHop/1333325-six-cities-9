@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {apiTemp} from '../types/state.js';
+import {ApiTemp} from '../types/state.js';
 import {
   APIRoute,
   AuthData,
@@ -17,7 +17,7 @@ import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
 import browserHistory from '../browser-history';
 
-export const fetchHotelsAction = createAsyncThunk<void, undefined, apiTemp>(
+export const fetchHotelsAction = createAsyncThunk<void, undefined, ApiTemp>(
   'data/fetchHotels',
   async (_arg, {dispatch, extra: api}) => {
     try {
@@ -29,7 +29,7 @@ export const fetchHotelsAction = createAsyncThunk<void, undefined, apiTemp>(
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, apiTemp>(
+export const checkAuthAction = createAsyncThunk<void, undefined, ApiTemp>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
@@ -41,7 +41,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, apiTemp>(
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, apiTemp>(
+export const loginAction = createAsyncThunk<void, AuthData, ApiTemp>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
     try {
@@ -55,7 +55,7 @@ export const loginAction = createAsyncThunk<void, AuthData, apiTemp>(
   },
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, apiTemp>(
+export const logoutAction = createAsyncThunk<void, undefined, ApiTemp>(
   'user/logout',
   async (_arg, { dispatch, extra: api}) => {
     try {
@@ -68,7 +68,7 @@ export const logoutAction = createAsyncThunk<void, undefined, apiTemp>(
   },
 );
 
-export const fetchOffer = createAsyncThunk<void, number, apiTemp>(
+export const fetchOffer = createAsyncThunk<void, number, ApiTemp>(
   'user/offer',
   async (id, { dispatch, extra: api}) => {
     try {
@@ -80,7 +80,7 @@ export const fetchOffer = createAsyncThunk<void, number, apiTemp>(
   },
 );
 
-export const fetchComments = createAsyncThunk<void, number, apiTemp>(
+export const fetchComments = createAsyncThunk<void, number, ApiTemp>(
   'offer/comment',
   async (id, { dispatch, extra: api}) => {
     try {
@@ -92,7 +92,7 @@ export const fetchComments = createAsyncThunk<void, number, apiTemp>(
   },
 );
 
-export const fetchNearHotels = createAsyncThunk<void, number, apiTemp>(
+export const fetchNearHotels = createAsyncThunk<void, number, ApiTemp>(
   'offer/nearHotels',
   async (id, { dispatch, extra: api}) => {
     try {
@@ -104,7 +104,7 @@ export const fetchNearHotels = createAsyncThunk<void, number, apiTemp>(
   },
 );
 
-export const createComment = createAsyncThunk<void, NewComment, apiTemp>(
+export const createComment = createAsyncThunk<void, NewComment, ApiTemp>(
   'offer/comment',
   async (newComment, { dispatch, extra: api}) => {
     try {
@@ -117,7 +117,7 @@ export const createComment = createAsyncThunk<void, NewComment, apiTemp>(
   },
 );
 
-export const changeFavorite = createAsyncThunk<void, FavoriteHotel, apiTemp>(
+export const changeFavorite = createAsyncThunk<void, FavoriteHotel, ApiTemp>(
   'offer/favorite',
   async ({id, isFavorite}, { dispatch, extra: api}) => {
     try {
@@ -132,8 +132,8 @@ export const changeFavorite = createAsyncThunk<void, FavoriteHotel, apiTemp>(
   },
 );
 
-export const fetchFavorites = createAsyncThunk<void, undefined, apiTemp>(
-  'data/fetchHotels',
+export const fetchFavorites = createAsyncThunk<void, undefined, ApiTemp>(
+  'data/fetchFavorites',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Hotel[]>(APIRoute.FAVORITE);
