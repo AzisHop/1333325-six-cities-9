@@ -30,16 +30,16 @@ export interface PageInfo {
 export enum TypePage {
   MAIN = 'main',
   FAVORITES = 'favorites',
-  OFFER = 'property',
+  HOTEL = 'property',
 }
 
 export interface Hotel {
   bedrooms?: number
   city: {
-    location?: {
-      latitude?: number
-      longitude?: number
-      zoom?: number
+    location: {
+      latitude: number
+      longitude: number
+      zoom: number
     }
     name: string
   }
@@ -95,7 +95,6 @@ export enum AppRoute {
   FAVORITES = '/favorites',
   ROOM = '/offer',
   ROOT = '/',
-  // Game = '/game'
 }
 
 export const APIRoute = {
@@ -131,7 +130,7 @@ export interface UserProcess {
 }
 
 export interface NewComment {
-  idOffer: number;
+  idHotel: number;
   review: {
     comment: string;
     rating: number;
@@ -142,3 +141,14 @@ export interface FavoriteHotel {
   id: number;
   isFavorite: boolean;
 }
+
+export interface City {
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  },
+  name: string;
+}
+
+export type Location = Omit<City, 'name'>;

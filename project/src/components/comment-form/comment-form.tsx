@@ -30,7 +30,7 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
     event.preventDefault();
     setIsDisabled(true);
     const newComment: NewComment = {
-      idOffer: roomId,
+      idHotel: roomId,
       review: {
         comment: comment,
         rating: rating,

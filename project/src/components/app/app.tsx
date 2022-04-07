@@ -5,6 +5,8 @@ import Login from '../pages/login/login';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-router/history-router';
 import Room from '../pages/room/room';
+import PrivateRoute from '../private-route/private-route';
+import Favorites from '../pages/favorites/favorites';
 
 function App(): JSX.Element {
   return (
@@ -17,6 +19,14 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.LOGIN}
           element={<Login />}
+        />
+        <Route
+          path={AppRoute.FAVORITES}
+          element={
+            <PrivateRoute>
+              <Favorites />
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.ROOM}

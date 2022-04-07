@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {apiTemp} from '../types/state.js';
+import {ApiTemp} from '../types/state.js';
 import {
   APIRoute,
   AuthData,
@@ -11,38 +11,37 @@ import {
   FavoriteHotel,
   AppRoute
 } from '../types/types';
-import {loadPlaces, setFavoriteMain} from './main-reducer/mainReducer';
-import {loadPlace, loadComments, loadNearbyOffers, setFavoriteNearbyOffers, setFavoriteHotel} from './place-reducer/place-reducer';
+import {loadFavoriteHotels, loadHotels, setFavoriteMain} from './main-reducer/mainReducer';
+import {loadHotel, loadComments, loadNearbyHotels, setFavoriteNearbyHotels, setFavoriteHotel} from './place-reducer/place-reducer';
 import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
 import browserHistory from '../browser-history';
 
-export const fetchHotelsAction = createAsyncThunk<void, undefined, apiTemp>(
+export const fetchHotelsAction = createAsyncThunk<void, undefined, ApiTemp>(
   'data/fetchHotels',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Hotel[]>(APIRoute.HOTELS);
-      dispatch(loadPlaces( data));
+      dispatch(loadHotels( data));
     } catch (error) {
       // console.log(error);
     }
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, apiTemp>(
+export const checkAuthAction = createAsyncThunk<void, undefined, ApiTemp>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<UserData>(APIRoute.LOGIN);
       dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch(error) {
-      // console.log(error);
       dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
     }
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, apiTemp>(
+export const loginAction = createAsyncThunk<void, AuthData, ApiTemp>(
   'user/login',
   async ({email, password}, {dispatch, extra: api}) => {
     try {
@@ -56,7 +55,7 @@ export const loginAction = createAsyncThunk<void, AuthData, apiTemp>(
   },
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, apiTemp>(
+export const logoutAction = createAsyncThunk<void, undefined, ApiTemp>(
   'user/logout',
   async (_arg, { dispatch, extra: api}) => {
     try {
@@ -69,19 +68,19 @@ export const logoutAction = createAsyncThunk<void, undefined, apiTemp>(
   },
 );
 
-export const fetchOffer = createAsyncThunk<void, number, apiTemp>(
+export const fetchOffer = createAsyncThunk<void, number, ApiTemp>(
   'user/offer',
   async (id, { dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Hotel>(`${APIRoute.HOTELS}/${id}`);
-      dispatch(loadPlace(data));
+      dispatch(loadHotel(data));
     } catch (error) {
       // console.log(error);
     }
   },
 );
 
-export const fetchComments = createAsyncThunk<void, number, apiTemp>(
+export const fetchComments = createAsyncThunk<void, number, ApiTemp>(
   'offer/comment',
   async (id, { dispatch, extra: api}) => {
     try {
@@ -93,24 +92,24 @@ export const fetchComments = createAsyncThunk<void, number, apiTemp>(
   },
 );
 
-export const fetchNearOffers = createAsyncThunk<void, number, apiTemp>(
-  'offer/nearOffers',
+export const fetchNearHotels = createAsyncThunk<void, number, ApiTemp>(
+  'offer/nearHotels',
   async (id, { dispatch, extra: api}) => {
     try {
       const {data} = await api.get<Hotel[]>(`${APIRoute.HOTELS}/${id}/nearby`);
-      dispatch(loadNearbyOffers(data));
+      dispatch(loadNearbyHotels(data));
     } catch (error) {
       // console.log(error);
     }
   },
 );
 
-export const createComment = createAsyncThunk<void, NewComment, apiTemp>(
+export const createComment = createAsyncThunk<void, NewComment, ApiTemp>(
   'offer/comment',
   async (newComment, { dispatch, extra: api}) => {
     try {
       const {comment, rating} = newComment.review;
-      const {data} = await api.post<CommentData[]>(`${APIRoute.COMMENTS}/${newComment.idOffer}`, {comment, rating});
+      const {data} = await api.post<CommentData[]>(`${APIRoute.COMMENTS}/${newComment.idHotel}`, {comment, rating});
       dispatch(loadComments(data));
     } catch (error) {
       // console.log(error); // ToDO сделать обработку ошибок для всего
@@ -118,16 +117,29 @@ export const createComment = createAsyncThunk<void, NewComment, apiTemp>(
   },
 );
 
-export const changeFavorite = createAsyncThunk<void, FavoriteHotel, apiTemp>(
+export const changeFavorite = createAsyncThunk<void, FavoriteHotel, ApiTemp>(
   'offer/favorite',
   async ({id, isFavorite}, { dispatch, extra: api}) => {
     try {
       const {data} = await api.post<Hotel>(`${APIRoute.FAVORITE}/${id}/${Number(isFavorite)}`);
       dispatch(setFavoriteMain(data));
-      dispatch(setFavoriteNearbyOffers(data));
+      dispatch(setFavoriteNearbyHotels(data));
       dispatch(setFavoriteHotel(data.isFavorite));
+      dispatch(fetchFavorites());
     } catch (error) {
       browserHistory.push(AppRoute.LOGIN);
+    }
+  },
+);
+
+export const fetchFavorites = createAsyncThunk<void, undefined, ApiTemp>(
+  'data/fetchFavorites',
+  async (_arg, {dispatch, extra: api}) => {
+    try {
+      const {data} = await api.get<Hotel[]>(APIRoute.FAVORITE);
+      dispatch(loadFavoriteHotels(data));
+    } catch (error) {
+      // console.log(error);
     }
   },
 );

@@ -3,35 +3,34 @@ import {AppRoute, AuthorizationStatus, Hotel, TypePage} from '../../../types/typ
 import Comments from '../../comments/comments';
 import Place from '../../place/place';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
-import {fetchComments, fetchNearOffers, fetchOffer} from '../../../store/api-actions';
-import {getComments, getNearbyOffers, getPlace} from '../../../store/place-reducer/selectors';
+import {fetchComments, fetchNearHotels, fetchOffer} from '../../../store/api-actions';
+import {getComments, getNearbyHotels, getPlace} from '../../../store/place-reducer/selectors';
 import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Header from '../../header/header';
-import {getAuth, getEmail} from '../../../store/user-reducer/selectors';
+import {getAuth} from '../../../store/user-reducer/selectors';
 import CommentForm from '../../comment-form/comment-form';
 import {getRatingInStar} from '../../../utils/utils';
 import {BookmarkButton} from '../../bookmark-button/bookmark-button';
+import Map from '../../map/map';
 
 export default function Room(): JSX.Element {
   const param = useParams();
   const roomId = Number(param.id);
   const dispatch = useAppDispatch();
+  const userAuth = useAppSelector(getAuth);
   useEffect(() => {
     dispatch(fetchOffer(roomId));
     dispatch(fetchComments(roomId));
-    dispatch(fetchNearOffers(roomId));
-  }, [roomId, dispatch, useAppSelector(getAuth)]);
-  const userAuth = useAppSelector(getAuth);
-  const email = useAppSelector(getEmail);
+    dispatch(fetchNearHotels(roomId));
+  }, [roomId, dispatch, userAuth]);
   const comments = useAppSelector(getComments);
-  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const nearbyHotels = useAppSelector(getNearbyHotels);
   const hotel: Hotel | null = useAppSelector(getPlace);
-
   if (hotel === null) {
     return (<div/>); // ToDo обработать нормально ошибку
   }
-
+  const mapPlaces = [...nearbyHotels, hotel];
   const ratingInStars = getRatingInStar(hotel.rating, 150);
   let images = hotel.images || [];
 
@@ -39,17 +38,16 @@ export default function Room(): JSX.Element {
     images = images.slice(0, 6);
   }
 
-  const places = nearbyOffers.map((place) => (
+  const places = nearbyHotels.map((place) => (
     <Place
       key={place.id}
       place={place}
-      typePage={TypePage.OFFER}
+      typePage={TypePage.HOTEL}
     />
   ));
   return (
     <div className="page">
       <Header isAuth={userAuth === AuthorizationStatus.AUTH}
-        email={email}
         page={`${AppRoute.ROOM}/${roomId}`}
       />
 
@@ -65,7 +63,7 @@ export default function Room(): JSX.Element {
                 <h1 className="property__name">
                     Beautiful &amp; luxurious studio at great location
                 </h1>
-                <BookmarkButton id={roomId} page={TypePage.OFFER} isFavorite={hotel.isFavorite}/>
+                <BookmarkButton id={roomId} page={TypePage.HOTEL} isFavorite={hotel.isFavorite}/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -154,7 +152,9 @@ export default function Room(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map location={hotel.city} hotels={mapPlaces} activePlace={hotel.id}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">

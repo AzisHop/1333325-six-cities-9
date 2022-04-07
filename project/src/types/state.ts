@@ -10,19 +10,21 @@ export enum Reducers {
 
 export interface MainData {
   city: string;
-  places: Hotel[];
+  hotels: Hotel[];
   sortingOption: Options;
+  favoriteHotels: Hotel[];
+  activeHotelId: number;
 }
 
 export interface PlaceData {
   activePlaceId: number;
-  place: Hotel | null;
+  hotel: Hotel | null;
   comments: CommentData[]
-  nearbyOffers: Hotel[]
+  nearbyHotels: Hotel[]
   isCurrentFavorite: boolean;
 }
 
-export interface apiTemp {
+export interface ApiTemp {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

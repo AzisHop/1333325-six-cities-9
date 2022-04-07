@@ -3,25 +3,27 @@ import {Hotel, Options} from '../../types/types';
 import {createSelector} from 'reselect';
 
 export const getCity = (state: State): string => state[Reducers.MAIN].city;
-export const getPlaces = (state: State): Hotel[] => state[Reducers.MAIN].places;
+export const getHotels = (state: State): Hotel[] => state[Reducers.MAIN].hotels;
 export const getSortOption = (state: State): Options => state[Reducers.MAIN].sortingOption;
+export const getFavoriteHotels = (state: State) : Hotel[] => state[Reducers.MAIN].favoriteHotels;
+export const getActiveHotelId = (state: State): number => state[Reducers.MAIN].activeHotelId;
 
-export const getOrderedPlaces = createSelector(
+export const getOrderedHotels = createSelector(
   getSortOption,
   getCity,
-  getPlaces,
-  (sortBy, filterBy, placesMain) => {
-    const places = placesMain
+  getHotels,
+  (sortBy, filterBy, HotelsMain) => {
+    const hotels = HotelsMain
       .filter(({city}) => city.name === filterBy);
     switch (sortBy) {
       case Options.HIGH:
-        return places.sort((place1, place2) => place2.price - place1.price);
+        return hotels.sort((hotel1, hotel2) => hotel2.price - hotel1.price);
       case Options.LOW:
-        return places.sort((place1, place2) => place1.price - place2.price);
+        return hotels.sort((hotel1, hotel2) => hotel1.price - hotel2.price);
       case Options.TOP:
-        return places.sort((place1, place2) => place2.rating - place1.rating);
+        return hotels.sort((hotel1, hotel2) => hotel2.rating - hotel1.rating);
       default:
-        return places;
+        return hotels;
     }
   });
 

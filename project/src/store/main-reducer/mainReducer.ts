@@ -4,8 +4,10 @@ import {Cities, Hotel, Options} from '../../types/types';
 
 const initialState: MainData = {
   city: Cities.AMSTERDAM,
-  places: [],
+  hotels: [],
   sortingOption: Options.POPULAR,
+  favoriteHotels: [],
+  activeHotelId: -1,
 };
 
 export const mainReducer = createSlice({
@@ -16,20 +18,33 @@ export const mainReducer = createSlice({
       state.city = action.payload;
 
     },
-    loadPlaces: (state, action: PayloadAction<Hotel[]>) => {
-      state.places = action.payload;
+    loadHotels: (state, action: PayloadAction<Hotel[]>) => {
+      state.hotels = action.payload;
+    },
+    loadFavoriteHotels: (state, action: PayloadAction<Hotel[]>) => {
+      state.favoriteHotels = action.payload;
     },
     setSortOption: (state, action: PayloadAction<Options>) => {
       state.sortingOption = action.payload;
     },
+    setActiveHotelId: (state, action: PayloadAction<number>) => {
+      state.activeHotelId = action.payload;
+    },
     setFavoriteMain: (state, action: PayloadAction<Hotel>) => {
-      state.places.forEach((place) => {
-        if (place.id === action.payload.id) {
-          place.isFavorite = !place.isFavorite;
+      state.hotels.forEach((hotel) => {
+        if (hotel.id === action.payload.id) {
+          hotel.isFavorite = !hotel.isFavorite;
         }
       });
     },
   },
 });
 
-export const {setCurrentCity, loadPlaces, setSortOption, setFavoriteMain} = mainReducer.actions;
+export const {
+  setCurrentCity,
+  loadHotels,
+  setSortOption,
+  setFavoriteMain,
+  loadFavoriteHotels,
+  setActiveHotelId,
+} = mainReducer.actions;

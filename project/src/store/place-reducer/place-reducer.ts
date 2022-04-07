@@ -4,9 +4,9 @@ import {CommentData, Hotel} from '../../types/types';
 
 const initialState: PlaceData = {
   activePlaceId: -1,
-  place: null,
+  hotel: null,
   comments: [],
-  nearbyOffers: [],
+  nearbyHotels: [],
   isCurrentFavorite: false,
 };
 
@@ -17,27 +17,27 @@ export const placeReducer = createSlice({
     setActivePlaceId: (state, action: PayloadAction<number>) => {
       state.activePlaceId = action.payload;
     },
-    loadPlace: (state, action: PayloadAction<Hotel>) => {
-      state.place = action.payload;
+    loadHotel: (state, action: PayloadAction<Hotel>) => {
+      state.hotel = action.payload;
     },
     loadComments: (state, action: PayloadAction<CommentData[]>) => {
       state.comments = action.payload;
     },
-    loadNearbyOffers: (state, action: PayloadAction<Hotel[]>) => {
-      state.nearbyOffers = action.payload;
+    loadNearbyHotels: (state, action: PayloadAction<Hotel[]>) => {
+      state.nearbyHotels = action.payload;
     },
     setFavoriteHotel: (state, action: PayloadAction<boolean>) => {
-      if (state.place !== null) {
-        state.place.isFavorite = action.payload;
+      if (state.hotel !== null) {
+        state.hotel.isFavorite = action.payload;
       }
     },
-    setFavoriteNearbyOffers: (state, action: PayloadAction<Hotel>) => {
-      if (!state.nearbyOffers.length) {
+    setFavoriteNearbyHotels: (state, action: PayloadAction<Hotel>) => {
+      if (!state.nearbyHotels.length) {
         return;
       }
-      state.nearbyOffers.forEach((offer) => {
-        if (offer.id === action.payload.id) {
-          offer.isFavorite = !offer.isFavorite;
+      state.nearbyHotels.forEach((hotel) => {
+        if (hotel.id === action.payload.id) {
+          hotel.isFavorite = !hotel.isFavorite;
         }
       });
     },
@@ -46,9 +46,9 @@ export const placeReducer = createSlice({
 
 export const {
   setActivePlaceId,
-  loadPlace,
+  loadHotel,
   loadComments,
-  loadNearbyOffers,
+  loadNearbyHotels,
   setFavoriteHotel,
-  setFavoriteNearbyOffers,
+  setFavoriteNearbyHotels,
 } = placeReducer.actions;
