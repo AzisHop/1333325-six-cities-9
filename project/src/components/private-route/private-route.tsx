@@ -9,20 +9,18 @@ type PrivateRouteProps = {
   children: JSX.Element;
   authorizationStatus?: string;
   page?: AppRoute;
-  bars?: string;
 }
 
 function PrivateRoute({
   children,
   authorizationStatus = AuthorizationStatus.AUTH,
-  page = AppRoute.LOGIN, bars,
+  page = AppRoute.LOGIN,
 }: PrivateRouteProps): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(checkAuthAction());
   });
   const auth = useAppSelector(getAuth);
-  console.log('auth ', auth);
   return (
     auth === authorizationStatus
       ? children

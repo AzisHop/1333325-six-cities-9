@@ -3,7 +3,7 @@ import {AuthorizationStatus, UserProcess} from '../../types/types';
 import {Reducers} from '../../types/state';
 
 const initialState: UserProcess = {
-  authorizationStatus: AuthorizationStatus.NO_AUTH,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
   email: '',
   avatarUrl: '',
 };
@@ -13,9 +13,7 @@ export const userReducer = createSlice({
   initialState,
   reducers: {
     requireAuthorization: (state, action) => {
-      console.log('REDUCER BEFORE ', state.authorizationStatus);
       [state.authorizationStatus, state.email, state.avatarUrl] = action.payload;
-      console.log('REDUCER ', state.authorizationStatus);
     },
   },
 });

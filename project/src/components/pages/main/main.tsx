@@ -4,7 +4,7 @@ import SortingCities from '../../sorting-cities/sorting-cities';
 import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
-import {setCurrentCity, setSortOption} from '../../../store/main-reducer/mainReducer';
+import {setCurrentCity, setSortOption} from '../../../store/main-reducer/main-reducer';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
 import {getActiveHotelId, getCity, getOrderedHotels, getSortOption} from '../../../store/main-reducer/selectors';
 import {useEffect} from 'react';

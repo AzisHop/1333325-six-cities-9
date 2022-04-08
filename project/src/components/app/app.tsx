@@ -20,7 +20,7 @@ function App(): JSX.Element {
         <Route
           path={AppRoute.LOGIN}
           element={
-            <PrivateRoute authorizationStatus='no_auth' page={AppRoute.ROOT} bars='no_auth'>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NO_AUTH} page={AppRoute.ROOT}>
               <Login />
             </PrivateRoute>
           }

@@ -11,7 +11,7 @@ import {
   FavoriteHotel,
   AppRoute
 } from '../types/types';
-import {loadFavoriteHotels, loadHotels, setFavoriteMain} from './main-reducer/mainReducer';
+import {loadFavoriteHotels, loadHotels, setFavoriteMain} from './main-reducer/main-reducer';
 import {loadHotel, loadComments, loadNearbyHotels, setFavoriteNearbyHotels, setFavoriteHotel} from './place-reducer/place-reducer';
 import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
@@ -35,10 +35,9 @@ export const checkAuthAction = createAsyncThunk<void, undefined, ApiTemp>(
   async (_arg, {dispatch, extra: api}) => {
     try {
       const {data} = await api.get<UserData>(APIRoute.LOGIN);
-      console.log(data);
       dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch(error) {
-      dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH));
+      dispatch(requireAuthorization([AuthorizationStatus.NO_AUTH]));
       errorHandle(error);
     }
   },

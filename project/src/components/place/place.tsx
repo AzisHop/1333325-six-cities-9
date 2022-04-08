@@ -5,7 +5,7 @@ import {getRatingInStar} from '../../utils/utils';
 import {BookmarkButton} from '../bookmark-button/bookmark-button';
 import {MouseEvent} from 'react';
 import {useAppDispatch} from '../../hooks';
-import {setActiveHotelId} from '../../store/main-reducer/mainReducer';
+import {setActiveHotelId} from '../../store/main-reducer/main-reducer';
 
 interface PlaceProps {
   place: Hotel;
