@@ -4,7 +4,7 @@ import {AppRoute, AuthorizationStatus} from '../../types/types';
 import Login from '../pages/login/login';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-router/history-router';
-import Room from '../pages/room/room';
+import LoadingScreen from '../pages/room/load-room';
 import PrivateRoute from '../private-route/private-route';
 import Favorites from '../pages/favorites/favorites';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
@@ -34,13 +34,13 @@ function App(): JSX.Element {
           }
         />
         <Route
-          path={AppRoute.ROOM}
-          element={<Room />}
+          path={`${AppRoute.ROOM}/:id`}
+          element={<LoadingScreen />}
         >
-          <Route
-            path=':id'
-            element={<Room />}
-          />
+          {/*<Route*/}
+          {/*  path=':id'*/}
+          {/*  element={<Room />}*/}
+          {/*/>*/}
         </Route>
         <Route
           path="*"

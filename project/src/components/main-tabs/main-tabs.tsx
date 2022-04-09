@@ -6,7 +6,7 @@ interface MainTabsProps {
   currentCity: string;
 }
 export default function MainTabs({handleClickCity, currentCity} : MainTabsProps): JSX.Element {
-  const cities = [Cities.HAMBURG, Cities.DUSSELDORF, Cities.AMSTERDAM, Cities.COLOGNE, Cities.BRUSSELS, Cities.PARIS];
+  const cities = [Cities.PARIS, Cities.COLOGNE, Cities.BRUSSELS, Cities.AMSTERDAM, Cities.HAMBURG, Cities.DUSSELDORF];
   return (
     <div className="tabs">
       <section className="locations container">

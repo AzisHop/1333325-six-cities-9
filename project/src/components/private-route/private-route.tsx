@@ -17,6 +17,7 @@ function PrivateRoute({
   page = AppRoute.LOGIN,
 }: PrivateRouteProps): JSX.Element {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(checkAuthAction());
   });

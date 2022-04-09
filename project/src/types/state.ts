@@ -22,6 +22,7 @@ export interface PlaceData {
   comments: CommentData[]
   nearbyHotels: Hotel[]
   isCurrentFavorite: boolean;
+  isHotelLoad: boolean;
 }
 
 export interface ApiTemp {

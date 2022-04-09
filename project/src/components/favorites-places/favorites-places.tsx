@@ -18,9 +18,10 @@ export default function FavoritesPlaces({favoritesPlaces} : FavoritesPlacesProps
     cities.get(favoritesPlace.city.name)?.push(favoritesPlace);
   });
   const places = [];
+  let id = 0;
   for (const amount of cities.values()) {
     if (amount.length) {
-      places.push(<FavoritePlacesCity favoritesPlaces={amount}/>);
+      places.push(<FavoritePlacesCity favoritesPlaces={amount} key={id++}/>);
     }
   }
   return (

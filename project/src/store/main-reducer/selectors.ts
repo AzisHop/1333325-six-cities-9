@@ -16,9 +16,9 @@ export const getOrderedHotels = createSelector(
     const hotels = HotelsMain
       .filter(({city}) => city.name === filterBy);
     switch (sortBy) {
-      case Options.HIGH:
-        return hotels.sort((hotel1, hotel2) => hotel2.price - hotel1.price);
       case Options.LOW:
+        return hotels.sort((hotel1, hotel2) => hotel2.price - hotel1.price);
+      case Options.HIGH:
         return hotels.sort((hotel1, hotel2) => hotel1.price - hotel2.price);
       case Options.TOP:
         return hotels.sort((hotel1, hotel2) => hotel2.rating - hotel1.rating);

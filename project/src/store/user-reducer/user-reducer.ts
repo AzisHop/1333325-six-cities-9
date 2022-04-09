@@ -3,7 +3,7 @@ import {AuthorizationStatus, UserProcess} from '../../types/types';
 import {Reducers} from '../../types/state';
 
 const initialState: UserProcess = {
-  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  authorizationStatus: AuthorizationStatus.NO_AUTH,
   email: '',
   avatarUrl: '',
 };

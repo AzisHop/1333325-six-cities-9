@@ -2,10 +2,8 @@ import RoomGallery from '../../room-gallery/room-gallery';
 import {AppRoute, AuthorizationStatus, Hotel, TypePage} from '../../../types/types';
 import Comments from '../../comments/comments';
 import Place from '../../place/place';
-import {useAppDispatch, useAppSelector} from '../../../hooks';
-import {fetchComments, fetchNearHotels, fetchOffer} from '../../../store/api-actions';
+import {useAppSelector} from '../../../hooks';
 import {getComments, getNearbyHotels, getPlace} from '../../../store/place-reducer/selectors';
-import {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Header from '../../header/header';
 import {getAuth} from '../../../store/user-reducer/selectors';
@@ -16,18 +14,14 @@ import Map from '../../map/map';
 import NotFoundScreen from '../../not-found-screen/not-found-screen';
 
 export default function Room(): JSX.Element {
+  ('ROOOM');
   const param = useParams();
   const roomId = Number(param.id);
-  const dispatch = useAppDispatch();
   const userAuth = useAppSelector(getAuth);
-  useEffect(() => {
-    dispatch(fetchOffer(roomId));
-    dispatch(fetchComments(roomId));
-    dispatch(fetchNearHotels(roomId));
-  }, [roomId, dispatch, userAuth]);
   const comments = useAppSelector(getComments);
   const nearbyHotels = useAppSelector(getNearbyHotels);
   const hotel: Hotel | null = useAppSelector(getPlace);
+
   if (hotel === null) {
     return (<NotFoundScreen />);
   }

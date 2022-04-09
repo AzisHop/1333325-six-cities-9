@@ -3,7 +3,7 @@ import {MainData, Reducers} from '../../types/state';
 import {Cities, Hotel, Options} from '../../types/types';
 
 const initialState: MainData = {
-  city: Cities.AMSTERDAM,
+  city: Cities.PARIS,
   hotels: [],
   sortingOption: Options.POPULAR,
   favoriteHotels: [],

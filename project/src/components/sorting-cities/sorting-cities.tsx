@@ -1,13 +1,15 @@
 import {Options} from '../../types/types';
 import cn from 'classnames';
 import {useState} from 'react';
+import {setSortOption} from '../../store/main-reducer/main-reducer';
+import {useAppDispatch} from '../../hooks';
 
 const options = [Options.POPULAR, Options.HIGH, Options.LOW, Options.TOP];
 interface SortingCitiesProps {
   sortOption: Options;
-  onSortClick: (option: Options) => void;
 }
-export default function SortingCities({sortOption, onSortClick}: SortingCitiesProps): JSX.Element {
+export default function SortingCities({sortOption}: SortingCitiesProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const [active, setActive] = useState<boolean>(false);
   const optionsClass = cn({
     'places__options places__options--custom': true,
@@ -15,6 +17,10 @@ export default function SortingCities({sortOption, onSortClick}: SortingCitiesPr
   });
   const onClickActive = () => {
     setActive(!active);
+  };
+  const handleSortClick = (option: Options) => {
+    dispatch(setSortOption(option));
+    setActive(false);
   };
   return (
     <form className="places__sorting" action="#" method="get">
@@ -35,7 +41,7 @@ export default function SortingCities({sortOption, onSortClick}: SortingCitiesPr
             <li
               key={option}
               className={optionClass}
-              onClick={() => onSortClick(option)}
+              onClick={() => handleSortClick(option)}
               tabIndex={0}
             >
               {option}

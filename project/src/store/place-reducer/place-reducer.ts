@@ -8,6 +8,7 @@ const initialState: PlaceData = {
   comments: [],
   nearbyHotels: [],
   isCurrentFavorite: false,
+  isHotelLoad: false,
 };
 
 export const placeReducer = createSlice({
@@ -17,8 +18,15 @@ export const placeReducer = createSlice({
     setActivePlaceId: (state, action: PayloadAction<number>) => {
       state.activePlaceId = action.payload;
     },
+    setIsHotelLoad: (state, action: PayloadAction<boolean>) => {
+      state.isHotelLoad = action.payload;
+    },
+    setHotel: (state, action: PayloadAction<Hotel | null>) => {
+      state.hotel = action.payload;
+    },
     loadHotel: (state, action: PayloadAction<Hotel>) => {
       state.hotel = action.payload;
+      state.isHotelLoad = true;
     },
     loadComments: (state, action: PayloadAction<CommentData[]>) => {
       state.comments = action.payload;
@@ -51,4 +59,6 @@ export const {
   loadNearbyHotels,
   setFavoriteHotel,
   setFavoriteNearbyHotels,
+  setIsHotelLoad,
+  setHotel,
 } = placeReducer.actions;
