@@ -7,19 +7,24 @@ import {getAuth} from '../../store/user-reducer/selectors';
 
 type PrivateRouteProps = {
   children: JSX.Element;
+  authorizationStatus?: string;
+  page?: AppRoute;
 }
 
-function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {children} = props;
+function PrivateRoute({
+  children,
+  authorizationStatus = AuthorizationStatus.AUTH,
+  page = AppRoute.LOGIN,
+}: PrivateRouteProps): JSX.Element {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(checkAuthAction());
   });
   const auth = useAppSelector(getAuth);
   return (
-    auth === AuthorizationStatus.AUTH
+    auth === authorizationStatus
       ? children
-      : <Navigate to={AppRoute.LOGIN} />
+      : <Navigate to={page} />
   );
 }
 

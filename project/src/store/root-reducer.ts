@@ -1,7 +1,7 @@
 import {combineReducers} from '@reduxjs/toolkit';
 
 import {Reducers} from '../types/state';
-import {mainReducer} from './main-reducer/mainReducer';
+import {mainReducer} from './main-reducer/main-reducer';
 import {userReducer} from './user-reducer/user-reducer';
 import {placeReducer} from './place-reducer/place-reducer';
 

@@ -4,7 +4,7 @@ import SortingCities from '../../sorting-cities/sorting-cities';
 import MainTabs from '../../main-tabs/main-tabs';
 import MainEmpty from './main-empty';
 
-import {setCurrentCity, setSortOption} from '../../../store/main-reducer/mainReducer';
+import {setCurrentCity, setSortOption} from '../../../store/main-reducer/main-reducer';
 import {useAppSelector, useAppDispatch} from '../../../hooks';
 import {getActiveHotelId, getCity, getOrderedHotels, getSortOption} from '../../../store/main-reducer/selectors';
 import {useEffect} from 'react';
@@ -13,6 +13,7 @@ import Header from '../../header/header';
 import {getAuth} from '../../../store/user-reducer/selectors';
 import Map from '../../map/map';
 import {CitiesLocation} from '../../../utils/utils';
+import cn from 'classnames';
 
 export default function Main(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,6 +27,11 @@ export default function Main(): JSX.Element {
   const cityLocation = CitiesLocation.filter((city) => city.name === currentCity)[0];
   const activePlace = useAppSelector(getActiveHotelId);
 
+  const mainBlockClass = cn({
+    'page__main page__main--index': true,
+    'page__main--index-empty': !places.length,
+  });
+
   const handleClickCity = (name: string) => {
     dispatch(setCurrentCity(name));
   };
@@ -35,7 +41,7 @@ export default function Main(): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header isAuth={auth === AuthorizationStatus.AUTH} />
-      <main className="page__main page__main--index">
+      <main className={mainBlockClass}>
         <h1 className="visually-hidden">{'Cities'}</h1>
         <MainTabs handleClickCity={handleClickCity} currentCity={currentCity}/>
         <div className="cities">{!places.length ? (<MainEmpty />) : (

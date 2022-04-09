@@ -1,19 +1,3 @@
-export enum RatingStars {
-  ONE = '20%',
-  TWO = '40%',
-  TREE = '60%',
-  FOUR = '80%',
-  FIVE = '100%',
-  NONE = '',
-}
-
-export enum TypeHousing {
-  APARTMENT = 'apartment',
-  ROOM = 'room',
-  HOUSE = 'house',
-  HOTEL = 'hotel',
-}
-
 export enum Cities {
   PARIS = 'Paris',
   COLOGNE = 'Cologne',
@@ -152,3 +136,11 @@ export interface City {
 }
 
 export type Location = Omit<City, 'name'>;
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
+
+export type ErrorType = unknown;

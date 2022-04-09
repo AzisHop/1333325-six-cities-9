@@ -13,6 +13,7 @@ import CommentForm from '../../comment-form/comment-form';
 import {getRatingInStar} from '../../../utils/utils';
 import {BookmarkButton} from '../../bookmark-button/bookmark-button';
 import Map from '../../map/map';
+import NotFoundScreen from '../../not-found-screen/not-found-screen';
 
 export default function Room(): JSX.Element {
   const param = useParams();
@@ -28,7 +29,7 @@ export default function Room(): JSX.Element {
   const nearbyHotels = useAppSelector(getNearbyHotels);
   const hotel: Hotel | null = useAppSelector(getPlace);
   if (hotel === null) {
-    return (<div/>); // ToDo обработать нормально ошибку
+    return (<NotFoundScreen />);
   }
   const mapPlaces = [...nearbyHotels, hotel];
   const ratingInStars = getRatingInStar(hotel.rating, 150);
