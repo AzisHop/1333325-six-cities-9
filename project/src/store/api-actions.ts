@@ -46,7 +46,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, ApiTemp>(
       dispatch(requireAuthorization([AuthorizationStatus.AUTH, data.email, data.avatarUrl]));
     } catch(error) {
       dispatch(requireAuthorization([AuthorizationStatus.NO_AUTH]));
-      errorHandle(error);
+      // errorHandle(error);
     }
   },
 );

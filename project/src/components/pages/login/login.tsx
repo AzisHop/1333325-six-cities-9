@@ -7,6 +7,8 @@ import {loginAction} from '../../../store/api-actions';
 export default function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
+  const regEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  const regPassword = /((?=.*\d)(?=.*[a-zA-Z])).{2,}/g;
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -18,12 +20,17 @@ export default function Login(): JSX.Element {
   const handleClick = (event: FormEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
+
     if (emailRef.current?.value.length && passwordRef.current?.value.length) {
-      onSubmit({
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-      });
-      navigate(AppRoute.ROOT);
+      const isValidEmail = regEmail.test(emailRef.current?.value);
+      const isValidPassword = regPassword.test(passwordRef.current?.value);
+      if (isValidEmail && isValidPassword) {
+        onSubmit({
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        });
+        navigate(AppRoute.ROOT);
+      }
     }
   };
   return (
