@@ -42,7 +42,7 @@ export default function Main(): JSX.Element {
       <Header isAuth={auth === AuthorizationStatus.AUTH} />
       <main className={mainBlockClass}>
         <h1 className="visually-hidden">{'Cities'}</h1>
-        <MainTabs handleClickCity={handleClickCity} currentCity={currentCity}/>
+        <MainTabs onCityClick={handleClickCity} currentCity={currentCity}/>
         <div className="cities">{!places.length ? (<MainEmpty city={currentCity}/>) : (
           <div className="cities__places-container container">
             <section className="cities__places places">

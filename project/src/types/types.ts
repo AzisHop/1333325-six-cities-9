@@ -65,7 +65,7 @@ export interface CommentData {
   }
 }
 
-export const stars = 5;
+export const STARS = 5;
 
 export enum Options {
   POPULAR = 'Popular',
@@ -104,7 +104,6 @@ export interface UserData {
 export enum AuthorizationStatus {
   AUTH = 'auth',
   NO_AUTH = 'no_auth',
-  UNKNOWN = 'unknown',
 }
 
 export interface UserProcess {
@@ -137,7 +136,7 @@ export interface City {
 
 export type Location = Omit<City, 'name'>;
 
-export enum HTTP_CODE {
+export enum HttpCode {
   BAD_REQUEST = 400,
   UNAUTHORIZED = 401,
   NOT_FOUND = 404,
@@ -151,3 +150,4 @@ export enum StatusCommentForm {
   DONE = 'done',
 }
 
+export const IMAGES_COUNT = 6;

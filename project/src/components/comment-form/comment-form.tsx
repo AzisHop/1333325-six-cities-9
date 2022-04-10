@@ -29,11 +29,11 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
     dispatch(setIsError(StatusCommentForm.DONE));
   }, [statusForm]);
 
-  const onChangeRating = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRating = (event: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(event.target.value));
   };
 
-  const onChangeComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeComment = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const text = event.target.value;
     setComment(text);
     const isValid = text.length > 50 && text.length <= 300;
@@ -56,14 +56,14 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <RatingStars onChangeRating={onChangeRating} activeId={rating} isDisabled={isDisabled}/>
+      <RatingStars onChangeRating={handleChangeRating} activeId={rating} isDisabled={isDisabled}/>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
-        onChange={onChangeComment}
+        onChange={handleChangeComment}
         disabled={isDisabled}
       />
       <div className="reviews__button-wrapper">

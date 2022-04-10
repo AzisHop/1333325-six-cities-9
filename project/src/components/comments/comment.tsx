@@ -1,4 +1,4 @@
-import {CommentData, stars} from '../../types/types';
+import {CommentData, STARS} from '../../types/types';
 interface CommentProps {
   comment: CommentData;
 }
@@ -6,7 +6,7 @@ interface CommentProps {
 export default function Comment({
   comment,
 }: CommentProps): JSX.Element {
-  const ratingInStars = Math.min(Math.round(comment.rating), 5) * 100 / stars;
+  const ratingInStars = Math.min(Math.round(comment.rating), 5) * 100 / STARS;
   const dateParse = new Date(comment.date);
   const month = dateParse.toLocaleDateString(undefined, { month: 'long'});
   const year = dateParse.getFullYear();

@@ -16,9 +16,6 @@ export const placeReducer = createSlice({
   name: Reducers.USER,
   initialState,
   reducers: {
-    setActivePlaceId: (state, action: PayloadAction<number>) => {
-      state.activePlaceId = action.payload;
-    },
     setIsHotelLoad: (state, action: PayloadAction<boolean>) => {
       state.isHotelLoad = action.payload;
     },
@@ -54,7 +51,6 @@ export const placeReducer = createSlice({
 });
 
 export const {
-  setActivePlaceId,
   loadHotel,
   loadComments,
   loadNearbyHotels,

@@ -18,6 +18,18 @@
   left: 70px;
   background: #4481c3;
   animation: spinner-3 0.9615384615384615s cubic-bezier(0,0.5,0.5,1) infinite;
+  animation-delay: -0.09615384615384616s
+}
+.spinner div:nth-child(4) {
+  left: 95px;
+  background: #4481c3;
+  animation: spinner-2 0.9615384615384615s cubic-bezier(0,0.5,0.5,1) infinite;
+  animation-delay: -0.09615384615384616s
+}
+.spinner div:nth-child(5) {
+  left: 120px;
+  background: #4481c3;
+  animation: spinner-3 0.9615384615384615s cubic-bezier(0,0.5,0.5,1) infinite;
   animation-delay: undefineds
 }
 .spinner-pulse {
@@ -52,6 +64,16 @@
 }
 @keyframes spinner-3 {
   0% { top: 20px; height: 60px }
+  50% { top: 30px; height: 40px }
+  100% { top: 30px; height: 40px }
+}
+@keyframes spinner-4 {
+  0% { top: 25px; height: 50px }
+  50% { top: 30px; height: 40px }
+  100% { top: 30px; height: 40px }
+}
+@keyframes spinner-5 {
+  0% { top: 30px; height: 40px }
   50% { top: 30px; height: 40px }
   100% { top: 30px; height: 40px }
 }

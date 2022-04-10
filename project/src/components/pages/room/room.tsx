@@ -1,5 +1,5 @@
 import RoomGallery from '../../room-gallery/room-gallery';
-import {AppRoute, AuthorizationStatus, Hotel, TypePage} from '../../../types/types';
+import {AppRoute, AuthorizationStatus, Hotel, IMAGES_COUNT, TypePage} from '../../../types/types';
 import Comments from '../../comments/comments';
 import Place from '../../place/place';
 import {useAppSelector} from '../../../hooks';
@@ -26,11 +26,12 @@ export default function Room(): JSX.Element {
     return (<NotFoundScreen />);
   }
   const mapPlaces = [...nearbyHotels, hotel];
-  const ratingInStars = getRatingInStar(hotel.rating, 150);
+  const coefficientStarsCss = 150;
+  const ratingInStars = getRatingInStar(hotel.rating, coefficientStarsCss);
   let images = hotel.images || [];
 
-  if (images.length > 5) {
-    images = images.slice(0, 6);
+  if (images.length > IMAGES_COUNT) {
+    images = images.slice(0, IMAGES_COUNT);
   }
 
   const places = nearbyHotels.map((place) => (

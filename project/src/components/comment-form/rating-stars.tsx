@@ -1,6 +1,6 @@
 import Star from './star';
 import {ChangeEvent} from 'react';
-import {stars} from '../../types/types';
+import {STARS} from '../../types/types';
 
 interface RatingStarsProps {
 onChangeRating: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -9,14 +9,14 @@ isDisabled: boolean;
 countStars?: number;
 }
 
-export default function RatingStars({onChangeRating, activeId, isDisabled, countStars = stars}: RatingStarsProps) : JSX.Element {
+export default function RatingStars({onChangeRating, activeId, isDisabled, countStars = STARS}: RatingStarsProps) : JSX.Element {
   return (
     <div className='reviews__rating-form form__rating' >
       {Array.from({length: countStars}).map((_,index)=>
         (
           <Star
-            key={String(5 - index)}
-            id={5 - index} activeId={activeId}
+            key={String(countStars - index)}
+            id={countStars - index} activeId={activeId}
             onChangeRating={onChangeRating}
             isDisabled={isDisabled}
           />

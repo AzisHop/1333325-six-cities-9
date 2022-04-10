@@ -2,10 +2,10 @@ import {Cities} from '../../types/types';
 import Tab from './tab';
 
 interface MainTabsProps {
-  handleClickCity: (name: string) => void;
+  onCityClick: (name: string) => void;
   currentCity: string;
 }
-export default function MainTabs({handleClickCity, currentCity} : MainTabsProps): JSX.Element {
+export default function MainTabs({onCityClick, currentCity} : MainTabsProps): JSX.Element {
   const cities = [Cities.PARIS, Cities.COLOGNE, Cities.BRUSSELS, Cities.AMSTERDAM, Cities.HAMBURG, Cities.DUSSELDORF];
   return (
     <div className="tabs">
@@ -16,7 +16,7 @@ export default function MainTabs({handleClickCity, currentCity} : MainTabsProps)
               key={nameCity}
               name={nameCity}
               active={currentCity === nameCity}
-              handleClickCity={handleClickCity}
+              onCityClick={onCityClick}
             />
           ),
           )}
