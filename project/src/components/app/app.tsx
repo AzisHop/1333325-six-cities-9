@@ -34,13 +34,13 @@ function App(): JSX.Element {
           }
         />
         <Route
-          path={`${AppRoute.ROOM}/:id`}
+          path={AppRoute.ROOM}
           element={<LoadingScreen />}
         >
-          {/*<Route*/}
-          {/*  path=':id'*/}
-          {/*  element={<Room />}*/}
-          {/*/>*/}
+          <Route
+            path=':id'
+            element={<LoadingScreen />}
+          />
         </Route>
         <Route
           path="*"
