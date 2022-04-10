@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {useAppDispatch} from '../../../hooks';
 import {AppRoute, AuthData} from '../../../types/types';
 import {loginAction} from '../../../store/api-actions';
+import {toast} from 'react-toastify';
 
 export default function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -30,6 +31,8 @@ export default function Login(): JSX.Element {
           password: passwordRef.current.value,
         });
         navigate(AppRoute.ROOT);
+      } else {
+        toast('Invalid password or email');
       }
     }
   };

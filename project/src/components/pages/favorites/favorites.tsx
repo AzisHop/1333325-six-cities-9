@@ -2,13 +2,14 @@ import cn from 'classnames';
 
 import FavoritesPlaces from '../../favorites-places/favorites-places';
 import FavoritesEmpty from './favorites-empty';
-import {AuthorizationStatus} from '../../../types/types';
+import {AppRoute, AuthorizationStatus} from '../../../types/types';
 import Header from '../../header/header';
 import {useAppDispatch, useAppSelector} from '../../../hooks';
 import {getAuth} from '../../../store/user-reducer/selectors';
 import {useEffect} from 'react';
 import {fetchFavorites} from '../../../store/api-actions';
 import {getFavoriteHotels} from '../../../store/main-reducer/selectors';
+import {Link} from 'react-router-dom';
 
 export default function Favorites(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -45,9 +46,9 @@ export default function Favorites(): JSX.Element {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <Link className="footer__logo-link" to={AppRoute.ROOT}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
-        </a>
+        </Link>
       </footer>
     </div>
   );

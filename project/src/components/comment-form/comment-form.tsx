@@ -16,7 +16,6 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
-  console.log('ISDis', isDisabled);
 
   const statusForm = useAppSelector(getIsError);
 

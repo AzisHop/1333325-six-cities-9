@@ -2,7 +2,7 @@ import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../types/types';
 import {useAppSelector} from '../../hooks';
 import {getAuth} from '../../store/user-reducer/selectors';
-import LoadingScreen from "../loading-screen/loading-screen";
+import LoadingScreen from '../loading-screen/loading-screen';
 
 type PrivateRouteProps = {
   children: JSX.Element;
@@ -20,7 +20,6 @@ function PrivateRoute({
     return <LoadingScreen />;
   }
 
-  console.log('AUTH', auth);
   return (
     auth === authorizationStatus
       ? children
