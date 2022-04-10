@@ -104,6 +104,7 @@ export interface UserData {
 export enum AuthorizationStatus {
   AUTH = 'auth',
   NO_AUTH = 'no_auth',
+  UNKNOWN = 'unknown',
 }
 
 export interface UserProcess {

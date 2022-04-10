@@ -86,9 +86,6 @@ export default function Room(): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">{hotel.title}</h2>
                 <ul className="property__inside-list">
-                  <li className="property__inside-item">
-                      Wi-Fi
-                  </li>
                   {hotel.goods?.map((good, index) =>
                     (
                       <li className="property__inside-item" key={index++}>

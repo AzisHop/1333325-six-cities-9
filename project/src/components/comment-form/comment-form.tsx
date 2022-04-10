@@ -16,16 +16,17 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
+  console.log('ISDis', isDisabled);
 
   const statusForm = useAppSelector(getIsError);
 
   useEffect(() => {
     if (statusForm === StatusCommentForm.UPDATE) {
-      setIsDisabled(false);
       setRating(0);
       setComment('');
       setIsCommentTextValid(false);
     }
+    setIsDisabled(false);
     dispatch(setIsError(StatusCommentForm.DONE));
   }, [statusForm]);
 
@@ -75,7 +76,7 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           onClick={handleSubmit}
-          disabled={!(isCommentTextValid && !!rating)}
+          disabled={!(isCommentTextValid && !!rating) || isDisabled}
         >
           Submit
         </button>

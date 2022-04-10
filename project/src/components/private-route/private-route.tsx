@@ -1,9 +1,8 @@
 import {Navigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../types/types';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {checkAuthAction} from '../../store/api-actions';
-import {useEffect} from 'react';
+import {useAppSelector} from '../../hooks';
 import {getAuth} from '../../store/user-reducer/selectors';
+import LoadingScreen from "../loading-screen/loading-screen";
 
 type PrivateRouteProps = {
   children: JSX.Element;
@@ -16,12 +15,12 @@ function PrivateRoute({
   authorizationStatus = AuthorizationStatus.AUTH,
   page = AppRoute.LOGIN,
 }: PrivateRouteProps): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(checkAuthAction());
-  });
   const auth = useAppSelector(getAuth);
+  if (auth === AuthorizationStatus.UNKNOWN) {
+    return <LoadingScreen />;
+  }
+
+  console.log('AUTH', auth);
   return (
     auth === authorizationStatus
       ? children

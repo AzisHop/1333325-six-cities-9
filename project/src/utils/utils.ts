@@ -1,7 +1,7 @@
-import {City} from '../types/types';
+import {City, STARS} from '../types/types';
 
-export function getRatingInStar(rating: number, coefficient = 100) {
-  return Math.min(Math.round(rating), 5) * coefficient / 5;
+export function getRatingInStar(rating: number, coefficient = 100, stars = STARS) {
+  return Math.min(Math.round(rating), 5) * coefficient / stars;
 }
 
 export const CitiesLocation: City[] = [
