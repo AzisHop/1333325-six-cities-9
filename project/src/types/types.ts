@@ -144,3 +144,10 @@ export enum HTTP_CODE {
 }
 
 export type ErrorType = unknown;
+
+export enum StatusCommentForm {
+  UPDATE = 'update',
+  ERROR = 'error',
+  DONE = 'done',
+}
+

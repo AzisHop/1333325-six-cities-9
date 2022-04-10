@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {PlaceData, Reducers} from '../../types/state';
-import {CommentData, Hotel} from '../../types/types';
+import {CommentData, Hotel, StatusCommentForm} from '../../types/types';
 
 const initialState: PlaceData = {
   activePlaceId: -1,
@@ -9,6 +9,7 @@ const initialState: PlaceData = {
   nearbyHotels: [],
   isCurrentFavorite: false,
   isHotelLoad: false,
+  isError: StatusCommentForm.DONE,
 };
 
 export const placeReducer = createSlice({
@@ -21,8 +22,8 @@ export const placeReducer = createSlice({
     setIsHotelLoad: (state, action: PayloadAction<boolean>) => {
       state.isHotelLoad = action.payload;
     },
-    setHotel: (state, action: PayloadAction<Hotel | null>) => {
-      state.hotel = action.payload;
+    setIsError: (state, action: PayloadAction<StatusCommentForm>) => {
+      state.isError = action.payload;
     },
     loadHotel: (state, action: PayloadAction<Hotel>) => {
       state.hotel = action.payload;
@@ -60,5 +61,5 @@ export const {
   setFavoriteHotel,
   setFavoriteNearbyHotels,
   setIsHotelLoad,
-  setHotel,
+  setIsError,
 } = placeReducer.actions;

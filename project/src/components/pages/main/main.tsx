@@ -43,7 +43,7 @@ export default function Main(): JSX.Element {
       <main className={mainBlockClass}>
         <h1 className="visually-hidden">{'Cities'}</h1>
         <MainTabs handleClickCity={handleClickCity} currentCity={currentCity}/>
-        <div className="cities">{!places.length ? (<MainEmpty />) : (
+        <div className="cities">{!places.length ? (<MainEmpty city={currentCity}/>) : (
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">{'Places'}</h2>

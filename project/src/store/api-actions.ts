@@ -9,10 +9,18 @@ import {
   UserData,
   NewComment,
   FavoriteHotel,
-  AppRoute
+  AppRoute,
+  StatusCommentForm
 } from '../types/types';
 import {loadFavoriteHotels, loadHotels, setFavoriteMain} from './main-reducer/main-reducer';
-import {loadHotel, loadComments, loadNearbyHotels, setFavoriteNearbyHotels, setFavoriteHotel} from './place-reducer/place-reducer';
+import {
+  loadHotel,
+  loadComments,
+  loadNearbyHotels,
+  setFavoriteNearbyHotels,
+  setFavoriteHotel,
+  setIsError
+} from './place-reducer/place-reducer';
 import {requireAuthorization} from './user-reducer/user-reducer';
 import {saveToken, dropToken} from '../services/token';
 import browserHistory from '../browser-history';
@@ -113,7 +121,9 @@ export const createComment = createAsyncThunk<void, NewComment, ApiTemp>(
       const {comment, rating} = newComment.review;
       const {data} = await api.post<CommentData[]>(`${APIRoute.COMMENTS}/${newComment.idHotel}`, {comment, rating});
       dispatch(loadComments(data));
+      dispatch(setIsError(StatusCommentForm.UPDATE));
     } catch (error) {
+      dispatch(setIsError(StatusCommentForm.ERROR));
       errorHandle(error);
     }
   },

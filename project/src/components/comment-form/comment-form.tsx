@@ -1,8 +1,10 @@
-import {useState, ChangeEvent, FormEvent} from 'react';
-import {useAppDispatch} from '../../hooks';
-import {NewComment} from '../../types/types';
+import {ChangeEvent, FormEvent, useEffect, useState} from 'react';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {NewComment, StatusCommentForm} from '../../types/types';
 import {createComment} from '../../store/api-actions';
 import RatingStars from './rating-stars';
+import {getIsError} from '../../store/place-reducer/selectors';
+import {setIsError} from '../../store/place-reducer/place-reducer';
 
 interface CommentFormProps {
   roomId: number;
@@ -14,6 +16,18 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
   const [comment, setComment] = useState('');
   const [rating, setRating] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
+
+  const statusForm = useAppSelector(getIsError);
+
+  useEffect(() => {
+    if (statusForm === StatusCommentForm.UPDATE) {
+      setIsDisabled(false);
+      setRating(0);
+      setComment('');
+      setIsCommentTextValid(false);
+    }
+    dispatch(setIsError(StatusCommentForm.DONE));
+  }, [statusForm]);
 
   const onChangeRating = (event: ChangeEvent<HTMLInputElement>) => {
     setRating(Number(event.target.value));
@@ -36,13 +50,7 @@ export default function CommentForm({roomId}: CommentFormProps) : JSX.Element {
         rating: rating,
       },
     };
-    dispatch(createComment(newComment))
-      .then(() => {
-        setIsDisabled(false);
-        setRating(0);
-        setComment('');
-        setIsCommentTextValid(false);
-      });
+    dispatch(createComment(newComment));
   };
 
   return (

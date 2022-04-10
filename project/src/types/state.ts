@@ -1,4 +1,4 @@
-import {CommentData, Hotel, Options, UserProcess} from './types';
+import {CommentData, Hotel, Options, StatusCommentForm, UserProcess} from './types';
 import {store} from '../store';
 import {AxiosInstance} from 'axios';
 
@@ -23,6 +23,7 @@ export interface PlaceData {
   nearbyHotels: Hotel[]
   isCurrentFavorite: boolean;
   isHotelLoad: boolean;
+  isError: StatusCommentForm;
 }
 
 export interface ApiTemp {
